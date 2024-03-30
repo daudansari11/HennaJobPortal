@@ -90,7 +90,7 @@ function IndustryTable({ title, placeholder, data ,handleDelete }) {
                           <li>
                             <Link
                               className="dropdown-item"
-                              to={`/admin/create-job-type/${item._id}`}
+                              to={`/admin/create-job-skill/${item._id}`}
                             >
                               <CiEdit className="action_icons" />
                               Edit
