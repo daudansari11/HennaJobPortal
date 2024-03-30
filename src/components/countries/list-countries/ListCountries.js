@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import CountryTable from "../countryTable/CountryTable";
 
-function ListCountries() {
+function ListCountries({ data, getCountryData }) {
   return (
     <>
       <div className="pageTableWrapper">
@@ -16,14 +16,14 @@ function ListCountries() {
             <h5>COUNTRIES</h5>
           </div>
           <div className="addNew">
-            <Link to="/admin/create-job" className="btn btn-success">
+            <Link to="/admin/create-country" className="btn btn-success">
               <AiOutlinePlus /> Add New Country
             </Link>
           </div>
         </div>
 
         <div className="pageBody">
-          <CountryTable />
+          <CountryTable data={data} getCountryData={getCountryData} />
         </div>
 
         <div className="pageFooter">
@@ -31,7 +31,8 @@ function ListCountries() {
             <div className="col-md-6">
               <div className="showEntry">
                 <p>
-                  Showing 1 to 10 of 246 entries (filtered from 984 total entries)
+                  Showing 1 to 10 of 246 entries (filtered from 984 total
+                  entries)
                 </p>
               </div>
             </div>

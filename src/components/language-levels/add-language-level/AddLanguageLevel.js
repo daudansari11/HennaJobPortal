@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import axios from "axios";
 
-const AddLanguageLevel = ({data}) => {
+const AddLanguageLevel = () => {
+  const [languageData, setLanguageData] = useState();
+
+  const getData = async () => {
+    try {
+      const resLanguage = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/language`
+      );
+      setLanguageData(resLanguage.data);
+
+      // const reslocation = await axios.get(
+      //   `https://abaris-j-p-backend.vercel.app/api/cities`
+      // );
+      // setLocationdata(reslocation.data);
+    } catch (error) {
+      alert("wrog");
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(languageData);
   return (
     <>
       <div className="pageTableWrapper">
@@ -21,13 +44,10 @@ const AddLanguageLevel = ({data}) => {
                   <strong>Language</strong>
                 </label>
                 <select className="form-select" id="lang" name="lang">
-                  <option value>Select Language</option>
-                  <option value="ar">عربى</option>
-                  <option value="en" selected="selected">
-                    English
-                  </option>
-                  <option value="es">Español</option>
-                  <option value="ur">اردو</option>
+                  {languageData &&
+                    languageData?.map((item) => {
+                      return <option value>{item.lang}</option>;
+                    })}
                 </select>
               </div>
 
@@ -107,7 +127,9 @@ const AddLanguageLevel = ({data}) => {
         </div>
 
         <div className="pageFooter">
-        <button className="btn btn-large btn-primary" type="button">Update <BsFillArrowRightCircleFill /></button>
+          <button className="btn btn-large btn-primary" type="button">
+            Update <BsFillArrowRightCircleFill />
+          </button>
         </div>
       </div>
     </>
