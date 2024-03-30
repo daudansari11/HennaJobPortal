@@ -73,7 +73,7 @@ function IndustryTable({ title, placeholder, data ,handleDelete }) {
                   <tr key={item.id} role="row" className="odd">
                     <td className="sorting_1">{item.lang}</td>
                     <td>
-                      <span dir="ltr">{item.job_skills}</span>
+                      <span dir="ltr">{item.job_shift}</span>
                     </td>
                     <td>
                       <div className="dropdown">
@@ -90,7 +90,7 @@ function IndustryTable({ title, placeholder, data ,handleDelete }) {
                           <li>
                             <Link
                               className="dropdown-item"
-                              to={`/admin/create-job-type/${item._id}`}
+                              to={`/admin/create-job-shift/${item._id}`}
                             >
                               <CiEdit className="action_icons" />
                               Edit

@@ -457,6 +457,10 @@ function App() {
             path="create-job-skill"
             element={<AddNewJobSkillsPage />}
           ></Route>
+          <Route
+            path="create-job-skill/:id"
+            element={<AddNewJobSkillsPage />}
+          ></Route>
           <Route path="sort-job-skills" element={<SortjobSkillsPage />}></Route>
 
           {/* job Types */}
@@ -469,12 +473,20 @@ function App() {
             path="create-job-type"
             element={<AddNewJobTypesPage />}
           ></Route>
+          <Route
+            path="create-job-type/:id"
+            element={<AddNewJobTypesPage />}
+          ></Route>
           <Route path="sort-job-types" element={<SortJobTypesPage />}></Route>
 
           {/* job shifts */}
           <Route path="list-job-shifts" element={<ListJobShiftsPage />}></Route>
           <Route
             path="create-job-shift"
+            element={<AddNewJobShiftsPage />}
+          ></Route>
+          <Route
+            path="create-job-shift/:id"
             element={<AddNewJobShiftsPage />}
           ></Route>
           <Route path="sort-job-shifts" element={<SortJobShiftsPage />}></Route>

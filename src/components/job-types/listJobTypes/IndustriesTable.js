@@ -73,7 +73,7 @@ function IndustryTable({ title, placeholder, data ,handleDelete }) {
                   <tr key={item.id} role="row" className="odd">
                     <td className="sorting_1">{item.lang}</td>
                     <td>
-                      <span dir="ltr">{item.job_skills}</span>
+                      <span dir="ltr">{item.job_type}</span>
                     </td>
                     <td>
                       <div className="dropdown">
