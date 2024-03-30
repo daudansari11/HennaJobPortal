@@ -177,6 +177,8 @@ function App() {
           />
 
           {/* -----category---- */}
+          {/* -----category---- */}
+          {/* -----category---- */}
           <Route path="category-list" element={<CategoryListPage />} />
           <Route path="add-category" element={<AddCategoryPage />} />
           <Route path="edit-category/:id" element={<AddCategoryPage />} />
@@ -261,6 +263,7 @@ function App() {
           {/* Countries */}
           <Route path="list-countries" element={<ListCountriesPage />}></Route>
           <Route path="create-country" element={<AddNewCountryPage />}></Route>
+          <Route path="edit-country/:id" element={<AddNewCountryPage />} />
 
           {/* --Country--Details-- */}
           <Route
@@ -269,9 +272,13 @@ function App() {
           ></Route>
 
           {/* ---states--- */}
+          {/* ---states--- */}
+          {/* ---states--- */}
           <Route path="list-states" element={<ListStatesPage />}></Route>
           <Route path="create-state" element={<AddNewStatePage />}></Route>
 
+          {/* ---cities--- */}
+          {/* ---cities--- */}
           {/* ---cities--- */}
           <Route path="list-cities" element={<ListCitiesPage />}></Route>
           <Route path="create-city" element={<AddNewCityPage />}></Route>
@@ -281,6 +288,8 @@ function App() {
           <Route path="create-package" element={<AddNewPackagePage />}></Route>
           {/* job--attributes */}
 
+          {/* Language */}
+          {/* Language */}
           {/* Language */}
           <Route
             path="list-language-levels"
@@ -303,14 +312,23 @@ function App() {
           ></Route>
 
           {/* Career */}
+          {/* Career */}
+          {/* Career */}
           <Route
             path="list-career-levels"
             element={<CareerLevelsPage />}
           ></Route>
+
           <Route
             path="create-career-level"
             element={<CreateCareerLevelPage />}
           ></Route>
+
+          <Route
+            path="edit-career-level/:id"
+            element={<CreateCareerLevelPage />}
+          />
+
           <Route
             path="sort-career-levels"
             element={<SortCareerLevelsPage />}

@@ -1,12 +1,92 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { FiSettings } from "react-icons/fi";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddCareerLevel = () => {
+  const params = useParams();
+  const [languageData, setLanguageData] = useState();
+
+  const [initialVal, setInitialVal] = useState({
+    career_level: "",
+    lang: "",
+    is_default: null,
+    is_active: null,
+  });
+  const navigate = useNavigate();
+
+  const getLanguageData = async () => {
+    try {
+      const resLang = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/language`
+      );
+      setLanguageData(resLang.data);
+    } catch (error) {
+      alert("wrog");
+    }
+  };
+
+  const changeHandler = (e) => {
+    const clone = { ...initialVal };
+    const value = e.target.value;
+
+    const name = e.target.name;
+    console.log(e.target.name);
+
+    clone[name] = value;
+
+    setInitialVal(clone);
+  };
+
+  const getById = async (id) => {
+    const res = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/carrier/${params?.id}`
+    );
+    setInitialVal(res?.data);
+  };
+
+  useEffect(() => {
+    getLanguageData();
+    if (params?.id) {
+      getById();
+    }
+  }, []);
+
+  const notify = (updateMassage) => toast(updateMassage);
+
+  const handleAdd = async () => {
+    try {
+      const res = await axios.post(
+        `https://abaris-j-p-backend.vercel.app/api/carrier/add`,
+        initialVal
+      );
+      notify("Add Successfull");
+      setTimeout(() => {
+        navigate("/admin/list-career-levels");
+      }, 1000);
+    } catch (error) {}
+  };
+
+  const updateHandle = async () => {
+    try {
+      const res = await axios.put(
+        `https://abaris-j-p-backend.vercel.app/api/carrier/update/${params.id}`,
+        initialVal
+      );
+      notify("update Successfull");
+      setTimeout(() => {
+        navigate("/admin/list-career-levels");
+      }, 1000);
+    } catch (error) {}
+  };
+
   return (
     <>
       <div className="pageTableWrapper">
+        <ToastContainer />
         <div className="pageHeader">
           <div className="pageTitle">
             <FiSettings />
@@ -21,14 +101,17 @@ const AddCareerLevel = () => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Language</strong>
                 </label>
-                <select className="form-select" id="lang" name="lang">
-                  <option value>Select Language</option>
-                  <option value="ar">عربى</option>
-                  <option value="en" selected="selected">
-                    English
-                  </option>
-                  <option value="es">Español</option>
-                  <option value="ur">اردو</option>
+                <select
+                  className="form-select"
+                  id="lang"
+                  name="lang"
+                  onChange={changeHandler}
+                >
+                  {languageData &&
+                    languageData?.map((item) => {
+                      // console.log(item);
+                      return <option value={item.lang}>{item.lang}</option>;
+                    })}
                 </select>
               </div>
 
@@ -39,8 +122,10 @@ const AddCareerLevel = () => {
                 <input
                   className="form-control"
                   placeholder="Career Level"
-                  name="career_level"
                   type="text"
+                  name="career_level"
+                  value={initialVal?.career_level}
+                  onChange={changeHandler}
                 />
               </div>
 
@@ -53,6 +138,9 @@ const AddCareerLevel = () => {
                   <input
                     className="form-check-input"
                     type="radio"
+                    name="is_default"
+                    value={1}
+                    onChange={changeHandler}
                     defaultChecked
                   />
                   <label
@@ -63,7 +151,13 @@ const AddCareerLevel = () => {
                   </label>
                 </div>
                 <div className="form-check d-inline-block">
-                  <input className="form-check-input" type="radio" />
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="is_default"
+                    value={0}
+                    onChange={changeHandler}
+                  />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -82,6 +176,8 @@ const AddCareerLevel = () => {
                   <input
                     className="form-check-input"
                     type="radio"
+                    name=" is_active"
+                    value={1}
                     defaultChecked
                   />
                   <label
@@ -92,7 +188,12 @@ const AddCareerLevel = () => {
                   </label>
                 </div>
                 <div className="form-check d-inline-block">
-                  <input className="form-check-input" type="radio" />
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name=" is_active"
+                    value={0}
+                  />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -106,7 +207,11 @@ const AddCareerLevel = () => {
         </div>
 
         <div className="pageFooter">
-          <button className="btn btn-large btn-primary" type="button">
+          <button
+            className="btn btn-large btn-primary"
+            type="button"
+            onClick={params.id ? updateHandle : handleAdd}
+          >
             Update <BsFillArrowRightCircleFill />
           </button>
         </div>

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
-import CareerTable from './career-table/CareerTable';
+import CareerTable from "./career-table/CareerTable";
 
-const CareerLevels = () => {
+const CareerLevels = ({ careerData, getCareerData }) => {
   return (
     <>
       <div className="pageTableWrapper">
@@ -16,14 +16,14 @@ const CareerLevels = () => {
             <h5>career Levels</h5>
           </div>
           <div className="addNew">
-            <Link to="/admin/create-career-level" className="btn btn-success">                
+            <Link to="/admin/create-career-level" className="btn btn-success">
               <AiOutlinePlus /> Add New Language Level
             </Link>
           </div>
         </div>
 
         <div className="pageBody">
-          <CareerTable />
+          <CareerTable careerData={careerData} getCareerData={getCareerData} />
         </div>
 
         <div className="pageFooter">
@@ -62,7 +62,7 @@ const CareerLevels = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default CareerLevels
+export default CareerLevels;

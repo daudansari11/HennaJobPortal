@@ -1,8 +1,7 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CityTable = () => {
+const CityTable = ({ data }) => {
   return (
     <>
       <div className="pageTable">
@@ -57,7 +56,6 @@ const CityTable = () => {
                   <option value={5}>Qadesiya</option>
                   <option value={6}>Safat</option>
                   <option value={7}>Salmiya</option>
-                 
                 </select>
               </td>
 
@@ -89,42 +87,49 @@ const CityTable = () => {
             </tr>
           </thead>
           <tbody>
-            <tr role="row" className="odd">
-              <td className="sorting_1">en</td>
-              <td className="sorting_1"> al-Kuwayt - Kuwait</td>
-              <td className="sorting_1">'Abullah-as-Salam</td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Action
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Edit
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Mark in Active
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr role="row" className="odd">
+            {data &&
+              data?.map((item) => {
+                console.log(item);
+                return (
+                  <tr role="row" className="odd">
+                    <td className="sorting_1">{item?.lang}</td>
+                    <td className="sorting_1">jkfdk</td>
+                    <td className="sorting_1">'Abullah-as-Salam</td>
+                    <td>
+                      <div className="dropdown">
+                        <button
+                          className="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Action
+                        </button>
+                        <ul className="dropdown-menu">
+                          <li>
+                            <Link className="dropdown-item" to="#">
+                              Edit
+                            </Link>
+                          </li>
+                          <li>
+                            <a className="dropdown-item" href="#">
+                              Delete
+                            </a>
+                          </li>
+                          <li>
+                            <a className="dropdown-item" href="#">
+                              Mark in Active
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+
+            {/* <tr role="row" className="odd">
               <td className="sorting_1">en</td>
               <td className="sorting_1"> al-Farwaniyah - Kuwait</td>
               <td className="sorting_1">'Umayriyah</td>
@@ -158,7 +163,7 @@ const CityTable = () => {
                   </ul>
                 </div>
               </td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>

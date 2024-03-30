@@ -6,17 +6,16 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 
 function LanguageTable({ data, getLanguageData }) {
   const handleLanguageDelete = async (id) => {
-    
     try {
       const delet = await axios.delete(
-        `https://abaris-j-p-backend.vercel.app/api/job-category/delete/${id}`
+        `https://abaris-j-p-backend.vercel.app/api/language/delete/${id}`
       );
       console.log(delet);
       getLanguageData();
     } catch (error) {}
   };
 
-  return (
+  https: return (
     <>
       <div className="pageTable">
         <div className="tableLength">
@@ -96,10 +95,9 @@ function LanguageTable({ data, getLanguageData }) {
           <tbody>
             {data &&
               data?.map((item) => {
-                
                 return (
-                  <tr role="row" className="odd">
-                    <td className="sorting_1">{item?.language}</td>
+                  <tr role="row" className="odd" key={item._id}>
+                    <td className="sorting_1">{item?.lang}</td>
 
                     <td>{item?.native}</td>
                     <td>{item?.iso_code}</td>

@@ -7,7 +7,7 @@ function ListStatesPage() {
       <div className="pageWrapper">
         <PageBar title=" States" />
         <h3 className="page-title">
-        Manage States  <small>States</small>
+          Manage States <small>States</small>
         </h3>
         <ListState />
       </div>
