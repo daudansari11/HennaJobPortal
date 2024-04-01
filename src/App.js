@@ -366,6 +366,10 @@ function App() {
             path="create-degree-level"
             element={<CreateDegreeLevelPage />}
           ></Route>
+          <Route
+            path="create-degree-level/:id"
+            element={<CreateDegreeLevelPage />}
+          ></Route>
 
           {/* Degree Types */}
           <Route path="list-degree-types" element={<DegreeTypesPage />}></Route>
