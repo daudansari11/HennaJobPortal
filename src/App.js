@@ -276,6 +276,7 @@ function App() {
           {/* ---states--- */}
           <Route path="list-states" element={<ListStatesPage />}></Route>
           <Route path="create-state" element={<AddNewStatePage />}></Route>
+          <Route path="edit-state/:id" element={<AddNewStatePage />}></Route>
 
           {/* ---cities--- */}
           {/* ---cities--- */}
