@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
-import IndustryTable from "../../industries/list-industries/industriesTable/IndustriesTable";
+import IndustryTable from "./IndustriesTable";
 
 
 
@@ -44,7 +44,7 @@ const tabularData = {
   ],
 };
 
-function ListJobExperiences() {
+function ListJobExperiences({data,handleDelete}) {
   return (
     <>
       <div className="pageTableWrapper">
@@ -54,14 +54,14 @@ function ListJobExperiences() {
             <h5>JOB EXPERIENCES</h5>
           </div>
           <div className="addNew">
-            <Link to="/admin/create-industry" className="btn btn-success">
+            <Link to="/admin/create-job-experience" className="btn btn-success">
               <AiOutlinePlus /> Add New Job Experiences
             </Link>
           </div>
         </div>
 
         <div className="pageBody">
-          <IndustryTable title="Job Experiences" placeholder="Job Experiences" data={tabularData}/>
+          <IndustryTable title="Job Experiences" placeholder="Job Experiences" data={data} handleDelete={handleDelete}/>
         </div>
 
         <div className="pageFooter">
