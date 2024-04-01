@@ -1,7 +1,18 @@
+import { Button, Popconfirm } from "antd";
+import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 
-const CareerTable = () => {
+const CareerTable = ({ careerData, getCareerData }) => {
+  const handleCareerDelete = async (id) => {
+    try {
+      const delet = await axios.delete(
+        `https://abaris-j-p-backend.vercel.app/api/carrier/delete/${id}`
+      );
+      getCareerData();
+    } catch (error) {}
+  };
   return (
     <>
       <div className="pageTable">
@@ -63,208 +74,61 @@ const CareerTable = () => {
             </tr>
           </thead>
           <tbody>
-            <tr role="row" className="odd">
-              <td className="sorting_1">en</td>
-              <td>
-                <span>Department Head</span>
-              </td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-primary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Action
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        to="/admin/edit-career-level"
-                      >
-                        Edit
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Mark in Active
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-
-            <tr role="row" className="even">
-              <td className="sorting_1">en</td>
-              <td>
-                <span>Entry Level </span>
-              </td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-primary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Action
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        to="/admin/edit-career-level"
-                      >
-                        Edit
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Mark in Active
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-
-            <tr role="row" className="odd">
-              <td className="sorting_1">en</td>
-              <td>
-                <span>Experienced Professional</span>
-              </td>
-              <div className="dropdown">
-                <button
-                  className="btn btn-primary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Action
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    <Link className="dropdown-item" to="/admin/edit-career-level">
-                      Edit
-                    </Link>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Delete
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Mark in Active
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </tr>
-
-            <tr role="row" className="odd">
-              <td className="sorting_1">en</td>
-              <td>
-                <span>GM / CEO / Country Head / President</span>
-              </td>
-              <div className="dropdown">
-                <button
-                  className="btn btn-primary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Action
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    <Link
-                      className="dropdown-item"
-                      to="/admin/edit-career-level"
-                    >
-                      Edit
-                    </Link>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Delete
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Mark in Active
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </tr>
-
-            <tr role="row" className="odd">
-              <td className="sorting_1">en</td>
-              <td>
-                <span>Intern/Student</span>
-              </td>
-              <div className="dropdown">
-                <button
-                  className="btn btn- primary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Action
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    <Link
-                      className="dropdown-item"
-                      to="/admin/edit-career-level"
-                    >
-                      Edit
-                    </Link>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Delete
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Mark in Active
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </tr>
+            {careerData &&
+              careerData?.map((item) => {
+                return (
+                  <tr role="row" className="odd" key={item._id}>
+                    <td className="sorting_1">{item?.lang}</td>
+                    <td>
+                      <span>{item?.career_level}</span>
+                    </td>
+                    <td>
+                      <div className="dropdown">
+                        <button
+                          className="btn btn-primary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Action
+                        </button>
+                        <ul className="dropdown-menu">
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              to={`/admin/edit-career-level/${item._id}`}
+                            >
+                              Edit
+                            </Link>
+                          </li>
+                          <li>
+                            <Popconfirm
+                              title="Delete the task"
+                              description="Are you sure to delete this Candidate?"
+                              onConfirm={() => handleCareerDelete(item?._id)}
+                              icon={
+                                <QuestionCircleOutlined
+                                  style={{
+                                    color: "red",
+                                  }}
+                                />
+                              }
+                            >
+                              <Button danger>Delete</Button>
+                            </Popconfirm>
+                          </li>
+                          <li>
+                            <a className="dropdown-item" href="#">
+                              Mark in Active
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

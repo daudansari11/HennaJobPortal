@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -8,7 +6,7 @@ import { BiChevronLeft } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import CityTable from "../cityTable/CityTable";
 
-function ListCity() {
+function ListCity({ data }) {
   return (
     <>
       <div className="pageTableWrapper">
@@ -26,7 +24,7 @@ function ListCity() {
         </div>
 
         <div className="pageBody">
-          <CityTable />
+          <CityTable data={data} />
         </div>
 
         <div className="pageFooter">
