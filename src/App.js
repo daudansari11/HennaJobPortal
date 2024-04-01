@@ -329,6 +329,10 @@ function App() {
             path="create-functional-area"
             element={<CreateFunctionAreaPage />}
           ></Route>
+          <Route
+            path="create-functional-area/:id"
+            element={<CreateFunctionAreaPage />}
+          ></Route>
 
           {/* Genders */}
           <Route path="list-genders" element={<GendersPage />}></Route>
@@ -415,6 +419,10 @@ function App() {
             element={<CreateSalaryPeriodPage />}
           ></Route>
           <Route
+            path="create-salary-period/:id"
+            element={<CreateSalaryPeriodPage />}
+          ></Route>
+          <Route
             path="sort-salary-periods"
             element={<SortSalaryPeriodsPage />}
           ></Route>
@@ -443,7 +451,7 @@ function App() {
             element={<AddNewJobExperiencesPage />}
           ></Route>
           <Route
-            path="create-job-experience"
+            path="create-job-experience/:id"
             element={<AddNewJobExperiencesPage />}
           ></Route>
           <Route

@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import SalaryPeriodsTable from './salary-periods-table/SalaryPeriodsTable';
 
-const SalaryPeriods = () => {
+const SalaryPeriods = ({data ,handleDelete}) => {
   return (
     <>
       <div className="pageTableWrapper">
@@ -22,7 +22,7 @@ const SalaryPeriods = () => {
           </div>
         </div>
 
-        <div className="pageBody"><SalaryPeriodsTable /></div>
+        <div className="pageBody"><SalaryPeriodsTable data={data} handleDelete={handleDelete} /></div>
 
         <div className="pageFooter">
           <div className="row">
