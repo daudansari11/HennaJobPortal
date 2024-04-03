@@ -377,6 +377,10 @@ function App() {
             path="create-degree-type"
             element={<CreateDegreeTypePage />}
           ></Route>
+          <Route
+            path="create-degree-type/:id"
+            element={<CreateDegreeTypePage />}
+          ></Route>
 
           {/* Major Subjects */}
           <Route
@@ -385,6 +389,10 @@ function App() {
           ></Route>
           <Route
             path="create-major-subject"
+            element={<CreateMajorSubjectsPage />}
+          ></Route>
+          <Route
+            path="create-major-subject/:id"
             element={<CreateMajorSubjectsPage />}
           ></Route>
           <Route
@@ -424,6 +432,10 @@ function App() {
           ></Route>
           <Route
             path="create-ownership-type"
+            element={<CreateOwnershipTypePage />}
+          ></Route>
+          <Route
+            path="create-ownership-type/:id"
             element={<CreateOwnershipTypePage />}
           ></Route>
           <Route

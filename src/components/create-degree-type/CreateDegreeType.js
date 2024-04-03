@@ -1,10 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiSettings } from "react-icons/fi";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const CreateDegreeType = () => {
+  const [languageData, setLanguageData] = useState();
+  const [dereeLevel, setdereeLevel] = useState();
+
+  const getData = async () => {
+    try {
+      const resLanguage = await axios.get(
+        'https://abaris-j-p-backend.vercel.app/api/language'
+      );
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/degree-level`
+      );
+      setdereeLevel(res.data);
+      setLanguageData(resLanguage.data);
+    } catch (error) {
+      alert("wrog");
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const [data, setData] = useState({
+    degreelevel_id: "",
+    is_default: 1,
+    is_active: 1,
+    sort_order: 0,
+    language_id: "",
+    degree_type: "",
+  })
+
+  const params = useParams()
+  const getById = async (id) => {
+    const res = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/degree-type/${params?.id}`
+    );
+    setData({...res?.data ,language_id:res?.data?.language_id._id ,degreelevel_id:res?.data?.degreelevel_id._id});
+  };
+
+  useEffect(() => {
+    if (params?.id) {
+      getById();
+    }
+  }, []);
+
+  const onchangeHandle = (e) => {
+    const clone = { ...data }
+    clone[e.target.name] = e.target.value
+    setData(clone)
+  }
+  const navigate = useNavigate()
+  const notify = (updateMassage) => toast(updateMassage);
+  const submitData = async () => {
+    try {
+      const res = await axios.post(
+        `https://abaris-j-p-backend.vercel.app/api/degree-type/add`,
+        data
+      );
+      notify("Add Successfull");
+      setTimeout(() => {
+        navigate("/admin/list-degree-types");
+      }, 1000);
+    } catch (error) { }
+  }
+  const submitDataUpdate = async () => {
+    try {
+      const res = await axios.put(
+        `https://abaris-j-p-backend.vercel.app/api/degree-type/update/${params.id}`,
+        data
+      );
+      notify("Update Successfull");
+      setTimeout(() => {
+        navigate("/admin/list-degree-types");
+      }, 1000);
+    } catch (error) { }
+  }
   return (
     <>
+      <ToastContainer />
         <div className="pageTableWrapper">
         <div className="pageHeader">
           <div className="pageTitle">
@@ -20,14 +99,12 @@ const CreateDegreeType = () => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Language</strong>
                 </label>
-                <select className="form-select" id="lang" name="lang">
+                <select className="form-select" id="lang" value={data?.language_id} name="language_id" onChange={onchangeHandle}>
                   <option value>Select Language</option>
-                  <option value="ar">عربى</option>
-                  <option value="en" selected="selected">
-                    English
-                  </option>
-                  <option value="es">Español</option>
-                  <option value="ur">اردو</option>
+                  {languageData &&
+                    languageData?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.lang}</option>;
+                    })}
                 </select>
               </div>
 
@@ -35,7 +112,13 @@ const CreateDegreeType = () => {
                 <label htmlFor="language_level">
                   <strong>Degree Level</strong>
                 </label>
-                <select className="form-select" name="degree_level_id"><option value selected="selected">Select Degree Level</option><option value={1}>Non-Matriculation</option><option value={2}>Matriculation/O-Level</option><option value={3}>Intermediate/A-Level</option><option value={4}>Bachelors</option><option value={5}>Masters</option><option value={6}>MPhil/MS</option><option value={7}>PHD/Doctorate</option><option value={8}>Certification</option><option value={9}>Diploma</option><option value={10}>Short Course</option></select>
+                <select className="form-select" id="lang" value={data?.degreelevel_id} name="degreelevel_id" onChange={onchangeHandle}>
+                  <option value>Select Degree Level</option>
+                  {dereeLevel &&
+                    dereeLevel?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.degree_level}</option>;
+                    })}
+                </select>
 
               </div>
 
@@ -47,19 +130,42 @@ const CreateDegreeType = () => {
                   className="form-control"
                   placeholder="Degree Type"
                   type="text"
+                  name='degree_type'
+                  value={data?.degree_type}
+                  onChange={onchangeHandle}
                 />
               </div>
 
+              {/* <div className="form-group mb-3">
+                <label htmlFor="job_shift">
+                  <strong>Sort Order</strong>
+                </label>
+                <input
+                  className="form-control"
+                  id="sort_order"
+                  placeholder="Sort Order"
+                  dir="ltr"
+                  name="sort_order"
+                  value={data?.sort_order}
+                  type="text"
+                  onChange={onchangeHandle}
+                />
+              </div> */}
+
               <div className="form-group mb-3">
-                <label htmlFor="is_default" className="d-block mb-1">
+                <label htmlFor="is_default">
                   <strong>Is Default?</strong>
                 </label>
 
-                <div className="form-check d-inline-block me-3">
+                <div className="form-check">
                   <input
                     className="form-check-input"
                     type="radio"
                     defaultChecked
+                    onChange={onchangeHandle}
+                    value={1}
+                    name="is_default"
+                    checked={data?.is_default == 1}
                   />
                   <label
                     className="form-check-label"
@@ -68,8 +174,11 @@ const CreateDegreeType = () => {
                     Yes
                   </label>
                 </div>
-                <div className="form-check d-inline-block">
-                  <input className="form-check-input" type="radio" />
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" onChange={onchangeHandle}
+                    value={0}
+                    checked={data?.is_default == 0}
+                    name="is_default" />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -80,15 +189,19 @@ const CreateDegreeType = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="is_default" className="d-block mb-1">
+                <label htmlFor="is_default">
                   <strong>Is Active?</strong>
                 </label>
 
-                <div className="form-check d-inline-block me-3">
+                <div className="form-check">
                   <input
                     className="form-check-input"
                     type="radio"
                     defaultChecked
+                    onChange={onchangeHandle}
+                    value={1}
+                    checked={data?.is_active == 1}
+                    name="is_active"
                   />
                   <label
                     className="form-check-label"
@@ -97,8 +210,10 @@ const CreateDegreeType = () => {
                     Yes
                   </label>
                 </div>
-                <div className="form-check d-inline-block">
-                  <input className="form-check-input" type="radio" />
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" checked={data?.is_active == 0} onChange={onchangeHandle}
+                    value={0}
+                    name="is_active" />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -112,9 +227,7 @@ const CreateDegreeType = () => {
         </div>
 
         <div className="pageFooter">
-          <button className="btn btn-large btn-primary" type="button">
-            Update <BsFillArrowRightCircleFill />
-          </button>
+        <button className="btn btn-large btn-primary" type="button" onClick={params?.id ? submitDataUpdate : submitData}>     {params?.id ? 'Update' : 'Save'}  <BsFillArrowRightCircleFill /></button>
         </div>
       </div>
     </>

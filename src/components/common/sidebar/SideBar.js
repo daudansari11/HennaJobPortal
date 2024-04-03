@@ -1349,7 +1349,7 @@ const SideBar = () => {
             <button
               className={`navLink ${allAside.majorSub ? "active" : ""}`}
               onClick={() => {
-                changeOpen(!allAside.majorSub);
+                changeOpen(!allAside.majorSub , 'majorSub');
               }}
             >
               <div className="text">

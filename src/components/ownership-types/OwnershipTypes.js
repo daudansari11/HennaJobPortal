@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import OwnershipTypesTable from './ownership-types-table/OwnershipTypesTable';
 
-const OwnershipTypes = () => {
+const OwnershipTypes = ({data ,handleDelete}) => {
   return (
     <>
       <div className="pageTableWrapper">
@@ -22,7 +22,7 @@ const OwnershipTypes = () => {
           </div>
         </div>
 
-        <div className="pageBody"><OwnershipTypesTable /></div>
+        <div className="pageBody"><OwnershipTypesTable data={data} handleDelete={handleDelete} /></div>
 
         <div className="pageFooter">
           <div className="row">
