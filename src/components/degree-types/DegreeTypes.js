@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import DegreeTypesTable from "./degree-types-table/DegreeTypesTable";
 
-const DegreeTypes = () => {
+const DegreeTypes = ({data , handleDelete}) => {
   return (
     <>
       <div className="pageTableWrapper">
@@ -23,7 +23,7 @@ const DegreeTypes = () => {
         </div>
 
         <div className="pageBody">
-          <DegreeTypesTable />
+          <DegreeTypesTable data={data} handleDelete={handleDelete}/>
         </div>
 
         <div className="pageFooter">

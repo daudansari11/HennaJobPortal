@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import MajorSubjectTable from './major-subject-table/MajorSubjectTable';
 
-const MajorSubjects = () => {
+const MajorSubjects = ({data , handleDelete}) => {
   return (
     <>
         <div className="pageTableWrapper">
@@ -23,7 +23,7 @@ const MajorSubjects = () => {
         </div>
 
         <div className="pageBody">
-          <MajorSubjectTable />
+          <MajorSubjectTable data={data} handleDelete={handleDelete}/>
         </div>
 
         <div className="pageFooter">

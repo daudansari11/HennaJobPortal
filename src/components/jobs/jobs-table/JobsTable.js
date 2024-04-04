@@ -21,7 +21,7 @@ const JobsTable = () => {
         </div>
         <table className="table table-striped table-bordered ">
           <thead>
-            <tr role="row" className="filter">
+            {/* <tr role="row" className="filter">
               <td>
                 <select className="form-select">
                   <option value selected="selected">
@@ -83,7 +83,7 @@ const JobsTable = () => {
                   <option value={0}>In Active</option>
                 </select>
               </td>
-            </tr>
+            </tr> */}
             <tr role="row" className="heading">
               <th>Company</th>
               <th>Job Title</th>
