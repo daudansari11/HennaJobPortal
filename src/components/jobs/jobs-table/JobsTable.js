@@ -85,7 +85,7 @@ const JobsTable = ({data ,handleDelete}) => {
               </td>
             </tr> */}
             <tr role="row" className="heading">
-              <th>Company</th>
+              <th>Company   Id</th>
               <th>Job Title</th>
               <th>Num of Positions</th>
               <th>Salary Surrency</th>
@@ -100,7 +100,7 @@ const JobsTable = ({data ,handleDelete}) => {
                 return (
                   <tr role="row" className="odd" key={i + 1}>
                     <td>
-                      <span>{i + 1}</span>
+                      <span>{item.company_id}</span>
                     </td>
                     <td>
                       <span>{item.title}</span>

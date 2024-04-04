@@ -422,6 +422,10 @@ function App() {
             element={<CreateMaritalStatusPage />}
           ></Route>
           <Route
+            path="create-marital-status/:id"
+            element={<CreateMaritalStatusPage />}
+          ></Route>
+          <Route
             path="sort-marital-status"
             element={<SortMaritalStatusPage />}
           ></Route>

@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
-const CreateJob = () => {
-  const [data , setData] = useState({
+const CreateJob = ({ allState }) => {
+  const [data, setData] = useState({
     positions: '',
-    id: 5,
     company_id: 8,
-    title:  'Developer',
+    title: '',
     description: '',
     benefits: '',
-    state_id: 3926,
+    state_id: '',
     is_freelance: 0,
-    salary_from: 45000,
-    salary_to: 70000,
+    salary_from: 0,
+    salary_to: 0,
     hide_salary: 0,
     salary_currency: 'USD',
     salary_period_id: 1,
@@ -23,16 +22,27 @@ const CreateJob = () => {
     job_experience_id: 5,
     is_active: 1,
     is_featured: 1,
-    search:'' ,
-    slug: 'laravel-developer-5',
     reference: null,
     location: null,
-    logo: null,
     type: null,
     postal_code: null,
     job_advertiser: null,
-    application_url: null,
-    json_object: null
+
+
+    skills_id: '',
+    country_id: '',
+    states_id: '',
+    city_id: '',
+    currency_id: '',
+    salery_periods_id: '',
+    carrier_level_id: '',
+    functional_area_id: '',
+    job_type_id: '',
+    job_shift_id: '',
+    positions: '',
+    gender_id: '',
+    degree_level_id: '',
+    job_experience: '',
   })
   const onchangeHandle = (e) => {
     const clone = { ...data }
@@ -73,6 +83,9 @@ const CreateJob = () => {
                   className="form-control"
                   placeholder="Job Title"
                   type="text"
+                  value={data.title}
+                  name="title"
+                  onChange={onchangeHandle}
                 />
               </div>
 
@@ -85,6 +98,9 @@ const CreateJob = () => {
                   rows="4"
                   className="form-control"
                   placeholder="Enter you Job Description"
+                  value={data.description}
+                  name="description"
+                  onChange={onchangeHandle}
                 ></textarea>
               </div>
               <div className="form-group mb-3">
@@ -96,6 +112,9 @@ const CreateJob = () => {
                   rows="4"
                   className="form-control"
                   placeholder="Benefits"
+                  value={data.benefits}
+                  name="benefits"
+                  onChange={onchangeHandle}
                 ></textarea>
               </div>
 
@@ -103,9 +122,12 @@ const CreateJob = () => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Job Skills</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Adobe Illustrator">Adobe Illustrator</option>
-                  <option value="Cold Calling">Cold Calling</option>
+                <select className="form-select" id="lang" value={data?.skills_id} name="skills_id" onChange={onchangeHandle}>
+                  <option value>Select Skill</option>
+                  {allState?.skills_id &&
+                    allState?.skills_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.job_skill}</option>;
+                    })}
                 </select>
               </div>
 
@@ -113,9 +135,12 @@ const CreateJob = () => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Country</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Kuwait">Kuwait</option>
-                  <option value="Hongkong">Hongkong</option>
+                <select className="form-select" id="lang" value={data?.country_id} name="country_id" onChange={onchangeHandle}>
+                  <option value>Select Skill</option>
+                  {allState?.country_id &&
+                    allState?.country_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.country}</option>;
+                    })}
                 </select>
               </div>
 
@@ -187,13 +212,17 @@ const CreateJob = () => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Salary From</strong>
                 </label>
-                <input type="number" className="form-control" />
+                <input type="number" className="form-control" value={data.salary_from}
+                  name="salary_from"
+                  onChange={onchangeHandle} />
               </div>
               <div className="form-group mb-3">
                 <label htmlFor="lang" className="mb-1">
                   <strong>Salary To</strong>
                 </label>
-                <input type="number" className="form-control" />
+                <input type="number" className="form-control" value={data.salary_to}
+                  name="salary_to"
+                  onChange={onchangeHandle} />
               </div>
 
               <div className="form-group mb-3">
@@ -304,6 +333,9 @@ const CreateJob = () => {
                   type="date"
                   className="form-control"
                   placeholder="Job Expiry Date"
+                  value={data.expiry_date}
+                  name="expiry_date"
+                  onChange={onchangeHandle}
                 />
               </div>
 
@@ -356,10 +388,10 @@ const CreateJob = () => {
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio"  onChange={onchangeHandle}
+                  <input className="form-check-input" type="radio" onChange={onchangeHandle}
                     value={0}
                     checked={data?.is_featured == 0}
-                    name="is_featured"/>
+                    name="is_featured" />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
