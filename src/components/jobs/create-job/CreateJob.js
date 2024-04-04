@@ -1,11 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 const CreateJob = () => {
+  const [data , setData] = useState({
+    positions: '',
+    id: 5,
+    company_id: 8,
+    title:  'Developer',
+    description: '',
+    benefits: '',
+    state_id: 3926,
+    is_freelance: 0,
+    salary_from: 45000,
+    salary_to: 70000,
+    hide_salary: 0,
+    salary_currency: 'USD',
+    salary_period_id: 1,
+    num_of_positions: 1,
+    expiry_date: '',
+    degree_level_id: 4,
+    job_experience_id: 5,
+    is_active: 1,
+    is_featured: 1,
+    search:'' ,
+    slug: 'laravel-developer-5',
+    reference: null,
+    location: null,
+    logo: null,
+    type: null,
+    postal_code: null,
+    job_advertiser: null,
+    application_url: null,
+    json_object: null
+  })
+  const onchangeHandle = (e) => {
+    const clone = { ...data }
+    clone[e.target.name] = e.target.value
+    setData(clone)
+  }
   return (
     <>
-      <div className="pageTableWrapper">
+      <div className='pageTableWrapper'>
         <div className="pageHeader">
           <div className="pageTitle">
             <FiSettings />
@@ -299,6 +335,42 @@ const CreateJob = () => {
 
               <div className="form-group mb-3">
                 <label htmlFor="is_default">
+                  <strong>Is featured?</strong>
+                </label>
+
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    defaultChecked
+                    onChange={onchangeHandle}
+                    value={1}
+                    name="is_featured"
+                    checked={data?.is_featured == 1}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexRadioDefault1"
+                  >
+                    Yes
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio"  onChange={onchangeHandle}
+                    value={0}
+                    checked={data?.is_featured == 0}
+                    name="is_featured"/>
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexRadioDefault2"
+                  >
+                    No
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="is_default">
                   <strong>Is Active?</strong>
                 </label>
 
@@ -307,50 +379,27 @@ const CreateJob = () => {
                     className="form-check-input"
                     type="radio"
                     defaultChecked
+                    onChange={onchangeHandle}
+                    value={1}
+                    checked={data?.is_active == 1}
+                    name="is_active"
                   />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault1"
                   >
-                    Active
+                    Yes
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" />
+                  <input className="form-check-input" type="radio" checked={data?.is_active == 0} onChange={onchangeHandle}
+                    value={0}
+                    name="is_active" />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
                   >
-                    In-Active
-                  </label>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="is_default">
-                  <strong>Is Featured?</strong>
-                </label>
-
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    defaultChecked
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexRadioDefault1"
-                  >
-                    Featured
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input className="form-check-input" type="radio" />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexRadioDefault2"
-                  >
-                    Not Featured
+                    No
                   </label>
                 </div>
               </div>
