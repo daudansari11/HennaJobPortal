@@ -1,7 +1,18 @@
+import { Button, Popconfirm } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import axios from "axios";
 
-const StateTable = () => {
+const StateTable = ({ data, getStateData }) => {
+  const handleDelete = async (id) => {
+    try {
+      const delet = await axios.delete(
+        `https://abaris-j-p-backend.vercel.app/api/states/delete/${id}`
+      );
+      getStateData();
+    } catch (error) {}
+  };
   return (
     <>
       <div className="pageTable">
@@ -56,7 +67,6 @@ const StateTable = () => {
                   <option value={5}>Mengala</option>
                   <option value={6}>Pakistan</option>
                   <option value={7}>Zimbabe</option>
-                 
                 </select>
               </td>
 
@@ -88,76 +98,60 @@ const StateTable = () => {
             </tr>
           </thead>
           <tbody>
-            <tr role="row" className="odd">
-              <td className="sorting_1">en</td>
-              <td className="sorting_1"> Kuwait</td>
-              <td className="sorting_1">Al Asimah</td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Action
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Edit
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Mark in Active
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr role="row" className="odd">
-              <td className="sorting_1">en</td>
-              <td className="sorting_1"> Kuwait</td>
-              <td className="sorting_1">Al Asimah</td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Action
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Edit
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Mark in Active
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+            {data &&
+              data?.map((item) => {
+                return (
+                  <tr role="row" className="odd">
+                    <td className="sorting_1">{item?.language_id?.lang}</td>
+                    <td className="sorting_1"> {item?.country_id?.country}</td>
+                    <td className="sorting_1">{item?.state}</td>
+                    <td>
+                      <div className="dropdown">
+                        <button
+                          className="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Action
+                        </button>
+                        <ul className="dropdown-menu">
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              to={`/admin/edit-state/${item._id}`}
+                            >
+                              Edit
+                            </Link>
+                          </li>
+                          <li>
+                            <Popconfirm
+                              title="Delete the task"
+                              description="Are you sure to delete this State?"
+                              onConfirm={() => handleDelete(item?._id)}
+                              icon={
+                                <QuestionCircleOutlined
+                                  style={{
+                                    color: "red",
+                                  }}
+                                />
+                              }
+                            >
+                              <Button danger>Delete</Button>
+                            </Popconfirm>
+                          </li>
+                          <li>
+                            <a className="dropdown-item" href="#">
+                              Mark in Active
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

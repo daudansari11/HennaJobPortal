@@ -71,7 +71,7 @@ const CategoryTable = ({ data, getCategoryData }) => {
                         <li>
                           <Link
                             className="dropdown-item"
-                            to={`/admin/edit-career-level${item._id}`}
+                            to={`/admin/edit-category/${item._id}`}
                           >
                             Edit
                           </Link>

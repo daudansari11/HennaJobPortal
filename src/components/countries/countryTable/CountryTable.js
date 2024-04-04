@@ -77,10 +77,9 @@ const CountryTable = ({ data, getCountryData }) => {
           <tbody>
             {data &&
               data?.map((item) => {
-                console.log(item);
                 return (
-                  <tr role="row" className="odd">
-                    <td className="sorting_1">{item?.lang}</td>
+                  <tr role="row" className="odd" key={item._id}>
+                    <td className="sorting_1">{item?.language_id?.lang}</td>
                     <td>
                       <span dir="ltr">{item?.country}</span>
                     </td>

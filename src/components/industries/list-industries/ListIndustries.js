@@ -6,49 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import IndustryTable from "./industriesTable/IndustriesTable";
 
-
-const tabularData = {
-  mainData: [
-    { id: "1", language: "en", industry: "Advertising/PR", action: "Action" },
-    {
-      id: "2",
-      language: "en",
-      industry: "Agriculture/Fertilizer/Pesticide",
-      action: "Action",
-    },
-    { id: "3", language: "en", industry: "Apparel/Clothing", action: "Action" },
-    {
-      id: "4",
-      language: "en",
-      industry: "Architecture/Interior Design",
-      action: "Action",
-    },
-    {
-      id: "5",
-      language: "en",
-      industry: "Arts / Entertainment",
-      action: "Action",
-    },
-    { id: "6", language: "en", industry: "AutoMobile", action: "Action" },
-    { id: "7", language: "en", industry: "Aviation", action: "Action" },
-    {
-      id: "8",
-      language: "en",
-      industry: "Banking/Financial Services",
-      action: "Action",
-    },
-    { id: "9", language: "en", industry: "	BPO", action: "Action" },
-    { id: "10", language: "en", industry: "Broadcasting", action: "Action" },
-    {
-      id: "11",
-      language: "en",
-      industry: "Business Development",
-      action: "Action",
-    },
-  ],
-};
-
-function ListIndustries({data}) {
+function ListIndustries({ data }) {
   return (
     <>
       <div className="pageTableWrapper">
@@ -65,7 +23,7 @@ function ListIndustries({data}) {
         </div>
 
         <div className="pageBody">
-          <IndustryTable title="Industry" placeholder="Industry" data={data}/>
+          <IndustryTable title="Industry" placeholder="Industry" data={data} />
         </div>
 
         <div className="pageFooter">

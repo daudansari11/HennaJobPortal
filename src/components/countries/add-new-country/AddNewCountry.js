@@ -14,7 +14,7 @@ function AddNewCountry() {
     nationality: "",
     is_default: null,
     is_active: null,
-    lang: "",
+    language_id: "",
   });
   const navigate = useNavigate();
 
@@ -32,12 +32,8 @@ function AddNewCountry() {
   const changeHandler = (e) => {
     const clone = { ...initialVal };
     const value = e.target.value;
-
     const name = e.target.name;
-    console.log(e.target.name);
-
     clone[name] = value;
-
     setInitialVal(clone);
   };
 
@@ -45,7 +41,8 @@ function AddNewCountry() {
     const res = await axios.get(
       `https://abaris-j-p-backend.vercel.app/api/countries/${params?.id}`
     );
-    setInitialVal(res?.data);
+    const clone = { ...res.data, language_id: res.data.language_id._id };
+    setInitialVal(clone);
   };
 
   useEffect(() => {
@@ -103,14 +100,17 @@ function AddNewCountry() {
                 <select
                   className="form-select"
                   id="lang"
-                  name="lang"
+                  name="language_id"
                   onChange={changeHandler}
-                  value={initialVal?.lang}
+                  value={initialVal?.language_id}
                 >
                   {languageData &&
                     languageData?.map((item) => {
-                      // console.log(item);
-                      return <option value={item.lang}>{item.lang}</option>;
+                      return (
+                        <option value={item?._id} key={item._id}>
+                          {item.lang}
+                        </option>
+                      );
                     })}
                 </select>
               </div>
