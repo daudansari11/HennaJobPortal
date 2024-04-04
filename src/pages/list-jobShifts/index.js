@@ -1,25 +1,36 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PageBar from "../../components/dashboard/page-bar/PageBar";
 import ListJobShifts from "../../components/job-shifts/list-jobShifts/ListJobShifts";
-// import axios from "axios";
+import axios from "axios";
 
 function ListJobShiftsPage() {
-  // const [data, setData] = useState();
+  const [data, setData] = useState();
 
-  // const jobShiftData = async () => {
-  //   try {
-  //     const res = axios.get(
-  //       `https://job-portal-wifv.vercel.app/user/employer/shift`
-  //     );
-  //     setData(res.data);
-  //   } catch (error) {
-  //     alert("Error");
-  //   }
-  // };
+  const jobShiftData = async () => {
+    try {
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/job-shift`
+      );
+      setData(res.data);
+    } catch (error) {
+      alert("Error");
+    }
+  };
 
-  // useEffect(() => {
-  //   jobShiftData();
-  // }, []);
+  useEffect(() => {
+    jobShiftData();
+  }, []);
+
+  const handleDelete =async (id) => {
+    try {
+      const res = await axios.delete(
+        `https://abaris-j-p-backend.vercel.app/api/job-shift/delete/${id}`
+      );
+      jobShiftData()
+    } catch (error) {
+      alert("Error");
+    }
+  };
 
   return (
     <>
@@ -28,7 +39,7 @@ function ListJobShiftsPage() {
         <h3 className="page-title">
           Manage Job Shifts<small>Job Shifts</small>
         </h3>
-        <ListJobShifts />
+        <ListJobShifts data={data} handleDelete={handleDelete}/>
       </div>
     </>
   );

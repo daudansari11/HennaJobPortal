@@ -102,7 +102,7 @@ const StateTable = ({ data, getStateData }) => {
               data?.map((item) => {
                 return (
                   <tr role="row" className="odd">
-                    <td className="sorting_1">{item?.country_id?.lang}</td>
+                    <td className="sorting_1">{item?.language_id?.lang}</td>
                     <td className="sorting_1"> {item?.country_id?.country}</td>
                     <td className="sorting_1">{item?.state}</td>
                     <td>

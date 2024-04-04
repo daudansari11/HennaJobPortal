@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
-import IndustryTable from "../../industries/list-industries/industriesTable/IndustriesTable";
+import IndustryTable from "./IndustriesTable";
 
 const tabularData = {
   mainData: [
@@ -30,7 +30,7 @@ const tabularData = {
   ],
 };
 
-function ListJobShifts() {
+function ListJobShifts({data,handleDelete}) {
   return (
     <>
       <div className="pageTableWrapper">
@@ -40,7 +40,7 @@ function ListJobShifts() {
             <h5>JOB SHIFTS</h5>
           </div>
           <div className="addNew">
-            <Link to="/admin/create-industry" className="btn btn-success">
+            <Link to="/admin/create-job-shift" className="btn btn-success">
               <AiOutlinePlus /> Add New Job Shifts
             </Link>
           </div>
@@ -50,7 +50,8 @@ function ListJobShifts() {
           <IndustryTable
             title=" Job Shifts"
             placeholder=" Job Shifts"
-            data={tabularData}
+            data={data}
+            handleDelete={handleDelete}
           />
         </div>
 

@@ -12,11 +12,14 @@ function AddNewState() {
 
   const [initialVal, setInitialVal] = useState({
     state: "",
-    is_default: null,
-    is_active: null,
+    is_default: 1,
+    is_active: 1,
+    sort_order: 0,
+
     country_id: "",
     language_id: "",
   });
+  console.log(initialVal);
   const navigate = useNavigate();
 
   const getLanguageData = async () => {
@@ -41,9 +44,7 @@ function AddNewState() {
 
     const name = e.target.name;
     console.log(e.target.name);
-
     clone[name] = value;
-
     setInitialVal(clone);
   };
 
@@ -51,7 +52,11 @@ function AddNewState() {
     const res = await axios.get(
       `https://abaris-j-p-backend.vercel.app/api/states/${params?.id}`
     );
-    setInitialVal(res?.data);
+    const clone = {
+      ...res.data,
+      country_id: res.data.country_id._id,
+    };
+    setInitialVal(clone);
   };
 
   useEffect(() => {
@@ -79,17 +84,16 @@ function AddNewState() {
   const updateHandle = async () => {
     try {
       const res = await axios.put(
-        `https://abaris-j-p-backend.vercel.app/api/countries/update/${params.id}`,
+        `https://abaris-j-p-backend.vercel.app/api/states/update/${params.id}`,
         initialVal
       );
       notify("update Successfull");
       setTimeout(() => {
-        navigate("/admin/list-countries");
+        navigate("/admin/list-states");
       }, 1000);
     } catch (error) {}
   };
-  console.log(country);
-  console.log(languageData);
+
   return (
     <>
       <div className="pageTableWrapper">
@@ -112,7 +116,7 @@ function AddNewState() {
                   className="form-select"
                   name="language_id"
                   onChange={changeHandler}
-                  value={initialVal?.language_id}
+                  value={initialVal?.language_id?._id}
                 >
                   {languageData &&
                     languageData?.map((item) => {
@@ -132,7 +136,7 @@ function AddNewState() {
                 >
                   {country &&
                     country?.map((item) => {
-                      return <option value={item._id}>{item?.country}</option>;
+                      return <option value={item?._id}>{item?.country}</option>;
                     })}
                 </select>
               </div>
@@ -162,6 +166,7 @@ function AddNewState() {
                     type="radio"
                     name=" is_default"
                     value={1}
+                    checked={initialVal?.is_default == 1}
                     defaultChecked
                   />
                   <label
@@ -177,6 +182,7 @@ function AddNewState() {
                     type="radio"
                     name=" is_default"
                     value={0}
+                    checked={initialVal?.is_default == 0}
                   />
                   <label
                     className="form-check-label"
@@ -198,11 +204,13 @@ function AddNewState() {
                     type="radio"
                     name="is_active"
                     value={1}
+                    checked={initialVal?.is_active == 1}
                     defaultChecked
                   />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault1"
+                    id="active"
                   >
                     Active
                   </label>
@@ -213,10 +221,12 @@ function AddNewState() {
                     type="radio"
                     name="is_active"
                     value={0}
+                    checked={initialVal?.is_active == 0}
                   />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
+                    id="active"
                   >
                     inActive
                   </label>

@@ -4,9 +4,6 @@ import { BsCheck2Square } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 function IndustryTable({ title, placeholder, data }) {
-  const handleDelete = () => {
-    alert("Are you want to sure to delete this item");
-  };
   return (
     <>
       <div className="pageTable">
@@ -70,12 +67,14 @@ function IndustryTable({ title, placeholder, data }) {
           </thead>
           <tbody>
             {data &&
-              data.map((item) => {
+              data?.map((item) => {
+                console.log(item);
+
                 return (
-                  <tr key={item.id} role="row" className="odd">
-                    <td className="sorting_1">{item.lang}</td>
+                  <tr role="row" className="odd">
+                    <td className="sorting_1">{item?.language_id?.lang}</td>
                     <td>
-                      <span dir="ltr">{item.job_type}</span>
+                      <span dir="ltr">{item?.industry}</span>
                     </td>
                     <td>
                       <div className="dropdown">
@@ -86,24 +85,20 @@ function IndustryTable({ title, placeholder, data }) {
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
                         >
-                          {/* {item.action} */}
+                          Action
                         </button>
                         <ul className="dropdown-menu">
                           <li>
                             <Link
                               className="dropdown-item"
-                              to={`/admin/create-job-type/${item._id}`}
+                              to={`/admin/edit-industry/${item._id}`}
                             >
                               <CiEdit className="action_icons" />
                               Edit
                             </Link>
                           </li>
                           <li>
-                            <a
-                              className="dropdown-item"
-                              href="#"
-                              onClick={handleDelete}
-                            >
+                            <a className="dropdown-item" href="#">
                               <AiOutlineDelete className="action_icons" />
                               Delete
                             </a>

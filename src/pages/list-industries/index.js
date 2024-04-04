@@ -5,20 +5,19 @@ import axios from "axios";
 
 function ListIndustriesPage() {
   const [data, setData] = useState();
-
-  const getIndustriesData = async () => {
+  const ListIndustriesData = async () => {
     try {
       const res = await axios.get(
-        `https://job-portal-wifv.vercel.app/api/user/employer/industries`
+        `https://abaris-j-p-backend.vercel.app/api/industry`
       );
       setData(res.data);
     } catch (error) {
-      alert("error");
+      alert("list industries data not found");
     }
   };
 
   useEffect(() => {
-    getIndustriesData();
+    ListIndustriesData();
   }, []);
 
   return (

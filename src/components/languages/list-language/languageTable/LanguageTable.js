@@ -101,8 +101,8 @@ function LanguageTable({ data, getLanguageData }) {
 
                     <td>{item?.native}</td>
                     <td>{item?.iso_code}</td>
-                    <td>{item?.is_rtl}</td>
-                    <td>{item?.is_default}</td>
+                    <td>{item.is_rtl == 1 ? "Yes" : "No"}</td>
+                    <td>{item.is_default == 1 ? "Yes" : "No"}</td>
                     <td>
                       <div className="dropdown">
                         <button

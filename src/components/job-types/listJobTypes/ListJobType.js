@@ -4,45 +4,16 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
-import IndustryTable from "../../industries/list-industries/industriesTable/IndustriesTable";
 import axios from "axios";
+import IndustryTable from "./IndustriesTable";
 
-// const tabularData = {
-//   mainData: [
-//     { id: "1", language: "en", industry: "Contact", action: "Action" },
-//     {
-//       id: "2",
-//       language: "en",
-//       industry: "FreeLance",
-//       action: "Action",
-//     },
-//     {
-//       id: "3",
-//       language: "en",
-//       industry: "Full Time/Permanent",
-//       action: "Action",
-//     },
-//     {
-//       id: "4",
-//       language: "en",
-//       industry: "InterShip",
-//       action: "Action",
-//     },
-//     {
-//       id: "5",
-//       language: "en",
-//       industry: "Part Time",
-//       action: "Action",
-//     },
-//   ],
-// };
 
 function ListJobTypes() {
   const [data, setData] = useState();
   const getDatas = async () => {
     try {
       const res = await axios.get(
-        `https://job-portal-wifv.vercel.app/employer/job-type`
+        `https://abaris-j-p-backend.vercel.app/api/job-type`
       );
       setData(res.data);
     } catch (error) {}
@@ -50,6 +21,17 @@ function ListJobTypes() {
   useEffect(() => {
     getDatas();
   }, []);
+
+  const handleDelete =async (id) => {
+    try {
+      const res = await axios.delete(
+        `https://abaris-j-p-backend.vercel.app/api/job-type/delete/${id}`
+      );
+      getDatas()
+    } catch (error) {
+      alert("Error");
+    }
+  };
 
   return (
     <>
@@ -60,7 +42,7 @@ function ListJobTypes() {
             <h5>JOB TYPES</h5>
           </div>
           <div className="addNew">
-            <Link to="/admin/create-industry" className="btn btn-success">
+            <Link to="/admin/create-job-type" className="btn btn-success">
               <AiOutlinePlus /> Add New Job Types
             </Link>
           </div>
@@ -71,6 +53,7 @@ function ListJobTypes() {
             title="Job Types"
             placeholder="JOB Types"
             data={data}
+            handleDelete={handleDelete}
           />
         </div>
 

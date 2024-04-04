@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import FunctionTable from './function-table/FunctionTable';
 
-const FunctionalAreas = () => {
+const FunctionalAreas = ({data, handleDelete}) => {
   return (
     <>
       <div className="pageTableWrapper">
@@ -16,14 +16,14 @@ const FunctionalAreas = () => {
             <h5>Functional Areas</h5>
           </div>
           <div className="addNew">
-            <Link to="/admin/create-function-area" className="btn btn-success">                
+            <Link to="/admin/create-functional-area" className="btn btn-success">                
               <AiOutlinePlus /> Add New Functional Area
             </Link>
           </div>
         </div>
 
         <div className="pageBody">
-          <FunctionTable />
+          <FunctionTable data={data} handleDelete={handleDelete}/>
         </div>
 
         <div className="pageFooter">
