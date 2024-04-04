@@ -6,7 +6,7 @@ import { BiChevronLeft } from "react-icons/bi";
 import StateTable from "../stateTable/StateTable";
 import { Link } from "react-router-dom";
 
-function ListState() {
+function ListState({ data, getStateData }) {
   return (
     <>
       <div className="pageTableWrapper">
@@ -17,14 +17,14 @@ function ListState() {
           </div>
 
           <div className="addNew">
-            <Link to="/admin/create-job" className="btn btn-success">
+            <Link to="/admin/create-state" className="btn btn-success">
               <AiOutlinePlus /> Add New State
             </Link>
           </div>
         </div>
 
         <div className="pageBody">
-          <StateTable />
+          <StateTable data={data} getStateData={getStateData} />
         </div>
 
         <div className="pageFooter">

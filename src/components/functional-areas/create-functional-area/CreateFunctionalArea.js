@@ -5,14 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-
 const CreateFunctionalArea = () => {
   const [languageData, setLanguageData] = useState();
 
   const getData = async () => {
     try {
       const resLanguage = await axios.get(
-        'https://abaris-j-p-backend.vercel.app/api/language'
+        "https://abaris-j-p-backend.vercel.app/api/language"
       );
       setLanguageData(resLanguage.data);
     } catch (error) {
@@ -29,9 +28,9 @@ const CreateFunctionalArea = () => {
     is_active: 1,
     sort_order: 0,
     language_id: "en",
-  })
+  });
 
-  const params = useParams()
+  const params = useParams();
   const getById = async (id) => {
     const res = await axios.get(
       `https://abaris-j-p-backend.vercel.app/api/functional-area/${params?.id}`
@@ -47,11 +46,11 @@ const CreateFunctionalArea = () => {
   }, []);
 
   const onchangeHandle = (e) => {
-    const clone = { ...data }
-    clone[e.target.name] = e.target.value
-    setData(clone)
-  }
-  const navigate = useNavigate()
+    const clone = { ...data };
+    clone[e.target.name] = e.target.value;
+    setData(clone);
+  };
+  const navigate = useNavigate();
   const notify = (updateMassage) => toast(updateMassage);
   const submitData = async () => {
     try {
@@ -63,8 +62,8 @@ const CreateFunctionalArea = () => {
       setTimeout(() => {
         navigate("/admin/list-functional-areas");
       }, 1000);
-    } catch (error) { }
-  }
+    } catch (error) {}
+  };
   const submitDataUpdate = async () => {
     try {
       const res = await axios.put(
@@ -75,8 +74,8 @@ const CreateFunctionalArea = () => {
       setTimeout(() => {
         navigate("/admin/list-functional-areas");
       }, 1000);
-    } catch (error) { }
-  }
+    } catch (error) {}
+  };
   return (
     <>
       <ToastContainer />
@@ -95,11 +94,21 @@ const CreateFunctionalArea = () => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Language Area</strong>
                 </label>
-                <select className="form-select" id="language_id" value={data?.language_id} name="language_id" onChange={onchangeHandle}>
+                <select
+                  className="form-select"
+                  id="language_id"
+                  value={data?.language_id}
+                  name="language_id"
+                  onChange={onchangeHandle}
+                >
                   <option value>Select Language</option>
                   {languageData &&
                     languageData?.map((item) => {
-                      return <option key={item._id} value={item._id}>{item.lang}</option>;
+                      return (
+                        <option key={item._id} value={item._id}>
+                          {item.lang}
+                        </option>
+                      );
                     })}
                 </select>
               </div>
@@ -157,10 +166,14 @@ const CreateFunctionalArea = () => {
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" onChange={onchangeHandle}
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    onChange={onchangeHandle}
                     value={0}
                     checked={data?.is_default == 0}
-                    name="is_default" />
+                    name="is_default"
+                  />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -193,9 +206,14 @@ const CreateFunctionalArea = () => {
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" checked={data?.is_active == 0} onChange={onchangeHandle}
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    checked={data?.is_active == 0}
+                    onChange={onchangeHandle}
                     value={0}
-                    name="is_active" />
+                    name="is_active"
+                  />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -204,17 +222,19 @@ const CreateFunctionalArea = () => {
                   </label>
                 </div>
               </div>
-
-
             </form>
           </div>
         </div>
 
         <div className="pageFooter">
-
-
-
-          <button className="btn btn-large btn-primary" type="button" onClick={params?.id ? submitDataUpdate : submitData}>     {params?.id ? 'Update' : 'Save'}  <BsFillArrowRightCircleFill /></button>
+          <button
+            className="btn btn-large btn-primary"
+            type="button"
+            onClick={params?.id ? submitDataUpdate : submitData}
+          >
+            {" "}
+            {params?.id ? "Update" : "Save"} <BsFillArrowRightCircleFill />
+          </button>
         </div>
       </div>
     </>

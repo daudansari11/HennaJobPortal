@@ -10,7 +10,7 @@ function AddNewJobShift() {
   const getData = async () => {
     try {
       const resLanguage = await axios.get(
-        'https://abaris-j-p-backend.vercel.app/api/language'
+        "https://abaris-j-p-backend.vercel.app/api/language"
       );
       setLanguageData(resLanguage.data);
     } catch (error) {
@@ -26,10 +26,10 @@ function AddNewJobShift() {
     is_default: 1,
     is_active: 1,
     sort_order: 0,
-    lang: ''
-  })
+    lang: "",
+  });
 
-  const params = useParams()
+  const params = useParams();
   const getById = async (id) => {
     const res = await axios.get(
       `https://abaris-j-p-backend.vercel.app/api/job-shift/${params?.id}`
@@ -44,11 +44,11 @@ function AddNewJobShift() {
   }, []);
 
   const onchangeHandle = (e) => {
-    const clone = { ...data }
-    clone[e.target.name] = e.target.value
-    setData(clone)
-  }
-  const navigate = useNavigate()
+    const clone = { ...data };
+    clone[e.target.name] = e.target.value;
+    setData(clone);
+  };
+  const navigate = useNavigate();
   const notify = (updateMassage) => toast(updateMassage);
   const submitData = async () => {
     try {
@@ -60,8 +60,8 @@ function AddNewJobShift() {
       setTimeout(() => {
         navigate("/admin/list-job-shifts");
       }, 1000);
-    } catch (error) { }
-  }
+    } catch (error) {}
+  };
   const submitDataUpdate = async () => {
     try {
       const res = await axios.put(
@@ -72,10 +72,11 @@ function AddNewJobShift() {
       setTimeout(() => {
         navigate("/admin/list-job-shifts");
       }, 1000);
-    } catch (error) { }
-  }
+    } catch (error) {}
+  };
   return (
-    <><ToastContainer />
+    <>
+      <ToastContainer />
       <div className="pageTableWrapper">
         <div className="pageHeader">
           <div className="pageTitle">
@@ -91,11 +92,21 @@ function AddNewJobShift() {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Language</strong>
                 </label>
-                <select className="form-select" id="lang" value={data?.lang} name="lang" onChange={onchangeHandle}>
+                <select
+                  className="form-select"
+                  id="lang"
+                  value={data?.lang}
+                  name="lang"
+                  onChange={onchangeHandle}
+                >
                   <option value>Select Language</option>
                   {languageData &&
                     languageData?.map((item) => {
-                      return <option key={item._id} value={item.lang}>{item.lang}</option>;
+                      return (
+                        <option key={item._id} value={item.lang}>
+                          {item.lang}
+                        </option>
+                      );
                     })}
                 </select>
               </div>
@@ -155,14 +166,17 @@ function AddNewJobShift() {
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" onChange={onchangeHandle}
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    onChange={onchangeHandle}
                     value={0}
                     checked={data.is_default == 0}
-                    name="is_default" />
+                    name="is_default"
+                  />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
-
                   >
                     No
                   </label>
@@ -192,9 +206,14 @@ function AddNewJobShift() {
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" checked={data.is_active == 0} type="radio" onChange={onchangeHandle}
+                  <input
+                    className="form-check-input"
+                    checked={data.is_active == 0}
+                    type="radio"
+                    onChange={onchangeHandle}
                     value={0}
-                    name="is_active" />
+                    name="is_active"
+                  />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -208,8 +227,12 @@ function AddNewJobShift() {
         </div>
 
         <div className="pageFooter">
-          <button className="btn btn-large btn-primary" type="button" onClick={params?.id ? submitDataUpdate : submitData}>
-            {params?.id ? 'Update' : 'Save'} <BsFillArrowRightCircleFill />
+          <button
+            className="btn btn-large btn-primary"
+            type="button"
+            onClick={params?.id ? submitDataUpdate : submitData}
+          >
+            {params?.id ? "Update" : "Save"} <BsFillArrowRightCircleFill />
           </button>
         </div>
       </div>

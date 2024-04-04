@@ -1,12 +1,12 @@
-import React from 'react';
-import {FiSettings} from "react-icons/fi";
-import {GoPlus} from "react-icons/go";
-import { Link } from 'react-router-dom';
+import React from "react";
+import { FiSettings } from "react-icons/fi";
+import { GoPlus } from "react-icons/go";
+import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
-import GenderTable from './gender-table/GenderTable';
+import GenderTable from "./gender-table/GenderTable";
 
-const Genders = () => {
+const Genders = ({ data }) => {
   return (
     <>
       <div className="pageTableWrapper">
@@ -16,14 +16,14 @@ const Genders = () => {
             <h5>Genders</h5>
           </div>
           <div className="addNew">
-            <Link to="/admin/create-gender" className="btn btn-success">                
+            <Link to="/admin/create-gender" className="btn btn-success">
               <GoPlus /> Add New Genders
             </Link>
           </div>
         </div>
 
         <div className="pageBody">
-          <GenderTable />
+          <GenderTable data={data} />
         </div>
 
         <div className="pageFooter">
@@ -62,7 +62,7 @@ const Genders = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Genders
+export default Genders;

@@ -106,6 +106,10 @@ import "react-toastify/dist/ReactToastify.css";
 import LocationListPage from "./pages/location-list";
 import AddLocationPage from "./pages/addLocation";
 import SelectedCandidateListPage from "./pages/selectedCandidate-list";
+import PositionPage from "./pages/position";
+import AddnewPsitionPage from "./pages/add-new-position";
+import CurrencyListpage from "./pages/currencyList";
+import AddnewCurrencyPage from "./pages/add-currency";
 
 function App() {
   const [sidebarActive, setSidebarActive] = useState(true);
@@ -265,8 +269,6 @@ function App() {
           <Route path="list-countries" element={<ListCountriesPage />}></Route>
           <Route path="create-country" element={<AddNewCountryPage />}></Route>
           <Route path="edit-country/:id" element={<AddNewCountryPage />} />
-
-          {/* --Country--Details-- */}
           <Route
             path="list-country-details"
             element={<CountryDetailsPage />}
@@ -277,6 +279,7 @@ function App() {
           {/* ---states--- */}
           <Route path="list-states" element={<ListStatesPage />}></Route>
           <Route path="create-state" element={<AddNewStatePage />}></Route>
+          <Route path="edit-state/:id" element={<AddNewStatePage />}></Route>
 
           {/* ---cities--- */}
           {/* ---cities--- */}
@@ -340,6 +343,8 @@ function App() {
           ></Route>
 
           {/* Functional */}
+          {/* Functional */}
+          {/* Functional */}
           <Route
             path="list-functional-areas"
             element={<FunctionalAreasPage />}
@@ -356,7 +361,28 @@ function App() {
           {/* Genders */}
           <Route path="list-genders" element={<GendersPage />}></Route>
           <Route path="create-gender" element={<CreateGenderPage />}></Route>
+          <Route path="edit-gender/:id" element={<CreateGenderPage />}></Route>
           <Route path="sort-genders" element={<SortGenderPage />}></Route>
+
+          {/* Industries */}
+          {/* Industries */}
+          {/* Industries */}
+          <Route
+            path="list-industries"
+            element={<ListIndustriesPage />}
+          ></Route>
+          <Route
+            path="create-industry"
+            element={<AddNewIndustryPage />}
+          ></Route>
+          <Route
+            path="edit-industry/:id"
+            element={<AddNewIndustryPage />}
+          ></Route>
+          <Route
+            path="sort-industries"
+            element={<SortIndustriesPage />}
+          ></Route>
 
           {/* Degree Levels */}
           <Route
@@ -405,6 +431,11 @@ function App() {
           <Route path="list-result-types" element={<ResultTypesPage />}></Route>
           <Route
             path="create-result-type"
+            element={<CreateResultTypePage />}
+          ></Route>
+
+          <Route
+            path="edit-result/:id"
             element={<CreateResultTypePage />}
           ></Route>
           <Route
@@ -466,20 +497,6 @@ function App() {
             element={<SortSalaryPeriodsPage />}
           ></Route>
 
-          {/* Industries */}
-          <Route
-            path="list-industries"
-            element={<ListIndustriesPage />}
-          ></Route>
-          <Route
-            path="create-industry"
-            element={<AddNewIndustryPage />}
-          ></Route>
-          <Route
-            path="sort-industries"
-            element={<SortIndustriesPage />}
-          ></Route>
-
           {/* job Experiences */}
           <Route
             path="list-job-experiences"
@@ -537,6 +554,26 @@ function App() {
             element={<AddNewJobShiftsPage />}
           ></Route>
           <Route path="sort-job-shifts" element={<SortJobShiftsPage />}></Route>
+
+          {/* ---currency---- */}
+          {/* ---currency---- */}
+          {/* ---currency---- */}
+          <Route path="list-currency" element={<CurrencyListpage />}></Route>
+          <Route
+            path="create-currency"
+            element={<AddnewCurrencyPage />}
+          ></Route>
+
+          {/* -----positions--- */}
+          {/* -----positions--- */}
+          {/* -----positions--- */}
+
+          <Route path="list-position" element={<PositionPage />}></Route>
+          <Route path="create-position" element={<AddnewPsitionPage />}></Route>
+          {/* <Route
+            path="create-job-shift/:id"
+            element={<AddNewJobShiftsPage />}
+          ></Route> */}
 
           {/* ----site--settigs */}
           <Route

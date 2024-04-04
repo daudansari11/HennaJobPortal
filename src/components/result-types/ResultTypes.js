@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import ResultTypeTable from "./result-type-table/ResultTypeTable";
 
-const ResultTypes = () => {
+const ResultTypes = ({ data, getResultdData }) => {
   return (
     <>
       <div className="pageTableWrapper">
@@ -22,7 +22,9 @@ const ResultTypes = () => {
           </div>
         </div>
 
-        <div className="pageBody"><ResultTypeTable /></div>
+        <div className="pageBody">
+          <ResultTypeTable data={data} getResultdData={getResultdData} />
+        </div>
 
         <div className="pageFooter">
           <div className="row">

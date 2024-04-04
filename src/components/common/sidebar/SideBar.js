@@ -23,6 +23,7 @@ import {
   BsGenderAmbiguous,
   BsBriefcase,
   BsBuildings,
+  BsCurrencyExchange,
 } from "react-icons/bs";
 
 import { Link, NavLink } from "react-router-dom";
@@ -32,6 +33,7 @@ import { CiUser } from "react-icons/ci";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { GoGlobe } from "react-icons/go";
 import { FaLocationDot } from "react-icons/fa6";
+import { FcPositiveDynamic } from "react-icons/fc";
 
 const SideBar = ({setSidebarActive}) => {
   const [allAside, setAllAside] = useState({
@@ -73,6 +75,8 @@ const SideBar = ({setSidebarActive}) => {
     packages: false,
     site: false,
     selectCandidate: false,
+    position: false,
+    currency: false,
   });
 
   const changeOpen = (val, str) => {
@@ -142,6 +146,8 @@ const SideBar = ({setSidebarActive}) => {
           </li>
 
           {/* -----module--- */}
+          {/* -----module--- */}
+          {/* -----module--- */}
           <li className="heading">
             <h3 className="uppercase">modules</h3>
           </li>
@@ -181,6 +187,9 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+
+
+          {/* --company-- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.company ? "active" : ""}`}
@@ -226,6 +235,9 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          {/* ---candidates */}
+          {/* ---candidates */}
+          {/* ---candidates */}
           {/* ---candidates */}
 
           <li className="navItem">
@@ -351,7 +363,7 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
-          {/* ----llcation--- */}
+          {/* ----l0cation--- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.location ? "active" : ""}`}
@@ -387,6 +399,7 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          {/* ---C.M.S-- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.cms ? "active" : ""}`}
@@ -436,6 +449,7 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          {/* ---manage--blog---- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.manageblog ? "active" : ""}`}
@@ -478,6 +492,8 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          
+          {/* ---SEO--- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.seo ? "active" : ""}`}
@@ -506,6 +522,7 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          {/* ----faqs---- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.faqs ? "active" : ""}`}
@@ -548,6 +565,8 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+
+          
           <li className="navItem">
             <button
               className={`navLink ${allAside.homepage ? "active" : ""}`}
@@ -626,6 +645,7 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          {/* ---slider--- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.slider ? "active" : ""}`}
@@ -668,10 +688,12 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          {/* ---translation--- */}
           <li className="heading">
             <h3 className="uppercase">TRANSLATION</h3>
           </li>
 
+          {/* --language-- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.translate ? "active" : ""}`}
@@ -890,6 +912,8 @@ const SideBar = ({setSidebarActive}) => {
           <li className="heading">
             <h3 className="uppercase">job attributes</h3>
           </li>
+
+          {/* --language--levels-- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.language ? "active" : ""}`}
@@ -1099,6 +1123,7 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          {/* ---experience-- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.experience ? "active" : ""}`}
@@ -1230,6 +1255,7 @@ const SideBar = ({setSidebarActive}) => {
             )}
           </li>
 
+          {/* ---job--shift-- */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.shifts ? "active" : ""}`}
@@ -1389,7 +1415,6 @@ const SideBar = ({setSidebarActive}) => {
           </li>
 
           {/* ---resultType--- */}
-
           <li className="navItem">
             <button
               className={`navLink ${allAside.resultType ? "active" : ""}`}
@@ -1519,6 +1544,8 @@ const SideBar = ({setSidebarActive}) => {
           </li>
 
           {/* ----salaryPeriod--- */}
+          {/* ----salaryPeriod--- */}
+          {/* ----salaryPeriod--- */}
 
           <li className="navItem">
             <button
@@ -1555,6 +1582,81 @@ const SideBar = ({setSidebarActive}) => {
                   <Link to="sort-salary-periods" className="subLink">
                     <div className="subText">
                       <span className="title">Sort Salary Periods</span>
+                    </div>
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* ----currency----- */}
+          <li className="navItem">
+            <button
+              className={`navLink ${allAside.currency ? "active" : ""}`}
+              onClick={() => {
+                changeOpen(!allAside.currency, "currency");
+              }}
+            >
+              <div className="text">
+                <BsCurrencyExchange />
+                <span className="title">currency</span>
+              </div>
+              <div className="arrow">
+                <BiChevronLeft />
+              </div>
+            </button>
+            {allAside.currency && (
+              <ul className="subMenu">
+                <li className="subItem">
+                  <Link to="list-currency" className="subLink">
+                    <div className="subText">
+                      <span className="title">List currency</span>
+                    </div>
+                  </Link>
+                </li>
+                <li className="subItem">
+                  <Link to="create-currency" className="subLink">
+                    <div className="subText">
+                      <span className="title">Add new currency</span>
+                    </div>
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* ----POSOTIONS------ */}
+          {/* ----POSOTIONS------ */}
+          {/* ----POSOTIONS------ */}
+          {/* ----POSOTIONS------ */}
+          <li className="navItem">
+            <button
+              className={`navLink ${allAside.position ? "active" : ""}`}
+              onClick={() => {
+                changeOpen(!allAside.position, "position");
+              }}
+            >
+              <div className="text">
+                <FcPositiveDynamic />
+                <span className="title">Positions</span>
+              </div>
+              <div className="arrow">
+                <BiChevronLeft />
+              </div>
+            </button>
+            {allAside.position && (
+              <ul className="subMenu">
+                <li className="subItem">
+                  <Link to="list-position" className="subLink">
+                    <div className="subText">
+                      <span className="title">List Positions</span>
+                    </div>
+                  </Link>
+                </li>
+                <li className="subItem">
+                  <Link to="create-position" className="subLink">
+                    <div className="subText">
+                      <span className="title">Add new Position</span>
                     </div>
                   </Link>
                 </li>
