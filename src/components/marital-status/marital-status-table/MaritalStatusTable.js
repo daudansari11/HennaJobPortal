@@ -1,6 +1,10 @@
 import React from 'react'
+import { AiOutlineDelete } from 'react-icons/ai';
+import { BsCheck2Square } from 'react-icons/bs';
+import { CiEdit } from 'react-icons/ci';
+import { Link } from 'react-router-dom';
 
-const MaritalStatusTable = () => {
+const MaritalStatusTable = ({data,handleDelete}) => {
   return (
     <>
         <div className="pageTable">
@@ -20,7 +24,7 @@ const MaritalStatusTable = () => {
             </div>
             <table className="table table-striped table-bordered ">
               <thead>
-                <tr role="row" className="filter">
+                {/* <tr role="row" className="filter">
                   <td>
                     <select id="lang" className="form-control" defaultValue={"lang"}>
                       <option value>Select Language</option>
@@ -52,7 +56,7 @@ const MaritalStatusTable = () => {
                       <option value={0}>In Active</option>
                     </select>
                   </td>
-                </tr>
+                </tr> */}
                 <tr role="row" className="heading">
                   <th>Language</th>
                   <th>Marital Status</th>
@@ -60,7 +64,62 @@ const MaritalStatusTable = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr role="row" className="odd">
+
+              {data &&
+              data.map((item) => {
+                return (
+                  <tr key={item.id} role="row" className="odd">
+                    <td className="sorting_1">{item?.language_id?.lang}</td>
+                    <td>
+                      <span dir="ltr">{item.marital_status}</span>
+                    </td>
+                    <td>{item.is_active == 1 ? 'Yes' : 'No'}</td>
+                    <td>
+                      <div className="dropdown">
+                        <button
+                          className="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          {/* {item.action} */}
+                        </button>
+                        <ul className="dropdown-menu">
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              to={`/admin/create-marital-status/${item._id}`}
+                            >
+                              <CiEdit className="action_icons" />
+                              Edit
+                            </Link>
+                          </li>
+                          <li>
+                            <a
+                              className="dropdown-item"
+                              href="#"
+                              onClick={() => { handleDelete(item._id) }}
+                            >
+                              <AiOutlineDelete className="action_icons" />
+                              Delete
+                            </a>
+                          </li>
+                          <li>
+                            <a className="dropdown-item" href="#">
+                              <BsCheck2Square className="action_icons" />
+                              Mark in Active
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+
+
+                {/* <tr role="row" className="odd">
                   <td className="sorting_1">en</td>
                   <td>
                     <span>Divorced</span>
@@ -136,7 +195,7 @@ const MaritalStatusTable = () => {
                       </li>
                     </ul>
                   </div>
-                </tr>
+                </tr> */}
 
               </tbody>
             </table>

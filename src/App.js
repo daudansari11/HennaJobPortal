@@ -124,7 +124,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" />} />
         <Route
           path="/admin"
-          element={<AdminPage sidebarActive={sidebarActive} />}
+          element={<AdminPage sidebarActive={sidebarActive} setSidebarActive={setSidebarActive} />}
         >
           <Route path="" element={<HomePage />}></Route>
 
@@ -148,6 +148,7 @@ function App() {
           {/* Jobs */}
           <Route path="list-jobs" element={<JobsPage />}></Route>
           <Route path="create-job" element={<CreateJobPage />}></Route>
+          <Route path="create-job/:id" element={<CreateJobPage />}></Route>
 
           {/* Companies */}
           <Route path="list-companies" element={<CompaniesPage />}></Route>
@@ -449,6 +450,10 @@ function App() {
           ></Route>
           <Route
             path="create-marital-status"
+            element={<CreateMaritalStatusPage />}
+          ></Route>
+          <Route
+            path="create-marital-status/:id"
             element={<CreateMaritalStatusPage />}
           ></Route>
           <Route

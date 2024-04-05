@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const JobsTable = () => {
+const JobsTable = ({data ,handleDelete}) => {
   return (
     <>
       <div className="pageTable">
@@ -19,7 +19,7 @@ const JobsTable = () => {
             <span className="record">records</span>
           </div>
         </div>
-        <table className="table table-striped table-bordered ">
+        <table inert className="table table-striped table-bordered ">
           <thead>
             {/* <tr role="row" className="filter">
               <td>
@@ -85,88 +85,69 @@ const JobsTable = () => {
               </td>
             </tr> */}
             <tr role="row" className="heading">
-              <th>Company</th>
+              <th>#</th>
+              <th>Company </th>
               <th>Job Title</th>
-              <th>Job Description</th>
+              <th>Num of Positions</th>
+              <th>Skills</th>
+              <th>Salary</th>
               <th>City</th>
+              <th>Job experience</th>
+              <th>Career Level</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr role="row" className="odd">
-              <td className="sorting_1">Connect People</td>
-
-              <td>Wordpress Developer</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipiscing...</td>
-              <td>ad-Dawhah(al-Kuwayt-Kuwait)</td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Action
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Edit
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Mark in Active
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr role="row" className="odd">
-              <td className="sorting_1">Connect People</td>
-
-              <td>Wordpress Developer</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipiscing...</td>
-              <td>ad-Dawhah(al-Kuwayt-Kuwait)</td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Action
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Edit
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Mark in Active
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+          {data &&
+              data.map((item, i) => {
+                return (
+                  <tr role="row" className="odd" key={i + 1}>
+                    <td>
+                      <span>{i + 1}</span>
+                    </td>
+                    <td>
+                      <span>{item?.company_id?.name}</span>
+                    </td>
+                    <td>
+                      <span>{item.job_title}</span>
+                    </td>
+                    <td inert>{item.position?.position}</td>
+                    <td>{item.skills_id?.job_skill}</td>
+                    <td>{item?.salary_from} - {item.salary_to} </td>
+                    <td>{item.city_id?.location_name}</td>
+                    <td>{item.job_experience?.job_experience}</td>
+                    <td>{item.carrier_level_id?.career_level}</td>
+                    <td>
+                      <div className="dropdown">
+                        <button
+                          className="btn btn-primary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Action
+                        </button>
+                        <ul className="dropdown-menu">
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              to={`/admin/create-job/${item._id}`}
+                            >
+                              Edit
+                            </Link>
+                          </li>
+                          <li>
+                            <a className="dropdown-item" href="#" onClick={()=>{handleDelete(item._id)}}>
+                              Delete
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

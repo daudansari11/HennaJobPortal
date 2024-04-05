@@ -59,7 +59,7 @@ function AddCandidateTable() {
       const rescategory = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/job-category`
       );
-      setCategorydata(rescategory.data);
+      setCategorydata(rescategory.data?.data);
 
       const reslocation = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/cities`

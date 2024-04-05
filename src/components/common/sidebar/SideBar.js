@@ -35,7 +35,7 @@ import { GoGlobe } from "react-icons/go";
 import { FaLocationDot } from "react-icons/fa6";
 import { FcPositiveDynamic } from "react-icons/fc";
 
-const SideBar = () => {
+const SideBar = ({setSidebarActive}) => {
   const [allAside, setAllAside] = useState({
     admin: false,
     language: false,
@@ -89,6 +89,7 @@ const SideBar = () => {
       }
     }
     setAllAside(clone);
+    setSidebarActive(true)
   };
 
   return (

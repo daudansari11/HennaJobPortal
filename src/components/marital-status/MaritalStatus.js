@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { BiChevronLeft } from "react-icons/bi";
 import MaritalStatusTable from './marital-status-table/MaritalStatusTable';
 
-const MaritalStatus = () => {
+const MaritalStatus = ({data,handleDelete}) => {
   return (
     <>
       <div className="pageTableWrapper">
@@ -22,7 +22,7 @@ const MaritalStatus = () => {
           </div>
         </div>
 
-        <div className="pageBody"><MaritalStatusTable /></div>
+        <div className="pageBody"><MaritalStatusTable data={data} handleDelete={handleDelete}/></div>
 
         <div className="pageFooter">
           <div className="row">

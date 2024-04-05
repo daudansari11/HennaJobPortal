@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from "react";
 import PageBar from "../../components/dashboard/page-bar/PageBar";
 import Jobs from "../../components/jobs/Jobs";
-// import axios from "axios";
+import axios from "axios";
 
 const JobsPage = () => {
-  // const [data, setData] = useState();
+  const [data, setData] = useState();
 
-  // const getJobData = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `https://job-panel-backend.vercel.app/api/job `
-  //     );
-  //     setData(res.data);
-  //   } catch (error) {}
-  // };
+  const getJobs = async (page) => {
+    try {
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/jobs?page=${page}`
+      );
+      setData(res.data);
+    } catch (error) {
+      alert("Error");
+    }
+  };
 
-  // useEffect(() => {
-  //   getJobData();
-  // }, []);
+  useEffect(() => {
+    getJobs(1);
+  }, []);
+
+  const handleDelete =async (id) => {
+    try {
+      const res = await axios.delete(
+        `https://abaris-j-p-backend.vercel.app/api/jobs/delete/${id}`
+      );
+      getJobs()
+    } catch (error) {
+      alert("Error");
+    }
+  };
 
   return (
     <>
@@ -26,7 +39,7 @@ const JobsPage = () => {
         <h3 className="page-title">
           Manage Jobs <small>Jobs</small>
         </h3>
-        <Jobs />
+        <Jobs data={data} handleDelete={handleDelete} getJobs={getJobs}/>
       </div>
     </>
   );
