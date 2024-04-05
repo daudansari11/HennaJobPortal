@@ -6,10 +6,10 @@ import axios from "axios";
 const JobsPage = () => {
   const [data, setData] = useState();
 
-  const getJobs = async () => {
+  const getJobs = async (page) => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/job/`
+        `https://abaris-j-p-backend.vercel.app/api/jobs?page=${page}`
       );
       setData(res.data);
     } catch (error) {
@@ -18,13 +18,13 @@ const JobsPage = () => {
   };
 
   useEffect(() => {
-    getJobs();
+    getJobs(1);
   }, []);
 
   const handleDelete =async (id) => {
     try {
       const res = await axios.delete(
-        `https://abaris-j-p-backend.vercel.app/api/job/delete/${id}`
+        `https://abaris-j-p-backend.vercel.app/api/jobs/delete/${id}`
       );
       getJobs()
     } catch (error) {
@@ -39,7 +39,7 @@ const JobsPage = () => {
         <h3 className="page-title">
           Manage Jobs <small>Jobs</small>
         </h3>
-        <Jobs data={data} handleDelete={handleDelete}/>
+        <Jobs data={data} handleDelete={handleDelete} getJobs={getJobs}/>
       </div>
     </>
   );

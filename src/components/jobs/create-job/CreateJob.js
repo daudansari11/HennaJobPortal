@@ -1,14 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
 
+
+const obj = {
+  company_id: "9",
+  title: "",
+  description: "",
+  benefits: "",
+  country_id: "",
+  state_id: "",
+  city_id: "",
+  is_freelance: '',
+  career_level_id: "",
+  salary_from: '',
+  salary_to: '',
+  hide_salary: '',
+  salary_currency: "",
+  salary_period_id: "",
+  functional_area_id:'',
+  job_type_id: "",
+  job_shift_id: "",
+  num_of_positions: "",
+  gender_id: "",
+  expiry_date: "",
+  degree_level_id: "",
+  job_experience_id: "",
+  is_active: "1",
+  is_featured: "1",
+  created_at: "",
+  updated_at: "",
+  search: "",
+  slug: "",
+  reference: null,
+  location: null,
+  type: null,
+  postal_code: null,
+  job_advertiser: null,
+  application_url: null,
+  updatedAt: "",
+  job_title: ""
+}
 const CreateJob = ({ allState }) => {
   const [data, setData] = useState({
-    positions: '',
+    position: '',
     company_id: 8,
-    title: '',
-    description: '',
-    benefits: '',
+    job_title: '',
+    job_description: '',
+    job_benefits: '',
     state_id: '',
     is_freelance: 0,
     salary_from: 0,
@@ -34,14 +76,13 @@ const CreateJob = ({ allState }) => {
     states_id: '',
     city_id: '',
     currency_id: '',
-    salery_periods_id: '',
+    salery_periods_id: null,
     carrier_level_id: '',
     functional_area_id: '',
     job_type_id: '',
     job_shift_id: '',
-    positions: '',
     gender_id: '',
-    degree_level_id: '',
+    degree_level: '',
     job_experience: '',
   })
   const onchangeHandle = (e) => {
@@ -49,8 +90,48 @@ const CreateJob = ({ allState }) => {
     clone[e.target.name] = e.target.value
     setData(clone)
   }
+  const navigate = useNavigate()
+  const notify = (updateMassage) => toast(updateMassage);
+
+  const params = useParams()
+  const getById = async (id) => {
+    const res = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/jobs/${params?.id}`
+    );
+    setData({...res?.data });
+  };
+  useEffect(() => {
+    if (params?.id) {
+      getById();
+    }
+  }, []);
+  const sendData = async () => {
+    try {
+      const res = await axios.post(`https://abaris-j-p-backend.vercel.app/api/jobs/add`, {...data  })
+      notify("Add Successfull");
+      setTimeout(() => {
+        navigate("/admin/list-jobs");
+      }, 1000);
+    } catch (error) {
+      alert('Job Not Add')
+    }
+  }
+
+  const submitDataUpdate = async () => {
+    try {
+      const res = await axios.put(
+        `https://abaris-j-p-backend.vercel.app/api/jobs/update/${params.id}`,
+        data
+      );
+      notify("Update Successfull");
+      setTimeout(() => {
+        navigate("/admin/list-jobs");
+      }, 1000);
+    } catch (error) { }
+  }
   return (
     <>
+     <ToastContainer />
       <div className='pageTableWrapper'>
         <div className="pageHeader">
           <div className="pageTitle">
@@ -66,12 +147,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Company</strong>
                 </label>
-                <select className="form-select">
-                  <option value>Company Name</option>
-                  <option value="Alpha">Alpha</option>
-                  <option value="Bita" selected="selected">
-                    Bita
-                  </option>
+                <select className="form-select" id="lang" value={data?.company_id} name="company_id" onChange={onchangeHandle}>
+                  <option value>Select Company</option>
+                  {allState?.company_id &&
+                    allState?.company_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.name}</option>;
+                    })}
                 </select>
               </div>
 
@@ -83,8 +164,8 @@ const CreateJob = ({ allState }) => {
                   className="form-control"
                   placeholder="Job Title"
                   type="text"
-                  value={data.title}
-                  name="title"
+                  value={data.job_title}
+                  name="job_title"
                   onChange={onchangeHandle}
                 />
               </div>
@@ -98,8 +179,8 @@ const CreateJob = ({ allState }) => {
                   rows="4"
                   className="form-control"
                   placeholder="Enter you Job Description"
-                  value={data.description}
-                  name="description"
+                  value={data.job_description}
+                  name="job_description"
                   onChange={onchangeHandle}
                 ></textarea>
               </div>
@@ -112,8 +193,8 @@ const CreateJob = ({ allState }) => {
                   rows="4"
                   className="form-control"
                   placeholder="Benefits"
-                  value={data.benefits}
-                  name="benefits"
+                  value={data.job_benefits}
+                  name="job_benefits"
                   onChange={onchangeHandle}
                 ></textarea>
               </div>
@@ -136,7 +217,7 @@ const CreateJob = ({ allState }) => {
                   <strong>Country</strong>
                 </label>
                 <select className="form-select" id="lang" value={data?.country_id} name="country_id" onChange={onchangeHandle}>
-                  <option value>Select Skill</option>
+                  <option value>Select Country</option>
                   {allState?.country_id &&
                     allState?.country_id?.map((item) => {
                       return <option key={item._id} value={item._id}>{item.country}</option>;
@@ -148,9 +229,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>State</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Al-Asimah</option>
-                  <option value="Al-Ahmadi">Al-Ahmadi</option>
+                <select className="form-select" id="lang" value={data?.states_id} name="states_id" onChange={onchangeHandle}>
+                  <option value>Select State</option>
+                  {allState?.states_id &&
+                    allState?.states_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.state}</option>;
+                    })}
                 </select>
               </div>
 
@@ -158,9 +242,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>City</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Kuwait</option>
-                  <option value="Al-Ahmadi">Kuwait</option>
+                <select className="form-select" id="lang" value={data?.city_id} name="city_id" onChange={onchangeHandle}>
+                  <option value>Select City</option>
+                  {allState?.city_id &&
+                    allState?.city_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.location_name}</option>;
+                    })}
                 </select>
               </div>
 
@@ -174,6 +261,10 @@ const CreateJob = ({ allState }) => {
                     className="form-check-input"
                     type="radio"
                     defaultChecked
+                    onChange={onchangeHandle}
+                    value={1}
+                    name="is_freelance"
+                    checked={data?.is_freelance == 1}
                   />
                   <label
                     className="form-check-label"
@@ -183,7 +274,10 @@ const CreateJob = ({ allState }) => {
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" />
+                  <input className="form-check-input" type="radio" onChange={onchangeHandle}
+                    value={0}
+                    checked={data?.is_freelance == 0}
+                    name="is_freelance" />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -197,15 +291,13 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Career Level</strong>
                 </label>
-                <select className="form-select">
-                  <option value selected="selected">
-                    Select Career level
-                  </option>
-                  <option value={1}>Department Head</option>
-                  <option value={2}>Entry Level</option>
-                  <option value={3}>Experienced Professional</option>
-                  <option value={4}>GM / CEO / Country Head / President</option>
-                  <option value={5}>Intern/Student</option>
+
+                <select className="form-select" id="lang" value={data?.carrier_level_id} name="carrier_level_id" onChange={onchangeHandle}>
+                  <option value>Select Career level</option>
+                  {allState?.carrier_level_id &&
+                    allState?.carrier_level_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.career_level}</option>;
+                    })}
                 </select>
               </div>
               <div className="form-group mb-3">
@@ -229,9 +321,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Salary Currency</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Select Salary Currency</option>
-                  <option value="Al-Ahmadi">AUED</option>
+                <select className="form-select" id="lang" value={data?.currency_id} name="currency_id" onChange={onchangeHandle}>
+                  <option value>Select Currency</option>
+                  {allState?.currency_id &&
+                    allState?.currency_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.currency}</option>;
+                    })}
                 </select>
               </div>
 
@@ -239,9 +334,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Salary Period</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Select Salary Period</option>
-                  <option value="Al-Ahmadi">Weekly</option>
+                <select className="form-select" id="lang" value={data?.salary_period_id} name="salary_period_id" onChange={onchangeHandle}>
+                  <option value>Select salary period</option>
+                  {allState?.salery_periods_id &&
+                    allState?.salery_periods_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.salary_period}</option>;
+                    })}
                 </select>
               </div>
 
@@ -251,7 +349,15 @@ const CreateJob = ({ allState }) => {
                 </label>
 
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" />
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    defaultChecked
+                    onChange={onchangeHandle}
+                    value={1}
+                    name="hide_salary"
+                    checked={data?.hide_salary == 1}
+                  />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault1"
@@ -260,11 +366,10 @@ const CreateJob = ({ allState }) => {
                   </label>
                 </div>
                 <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    defaultChecked
-                  />
+                  <input className="form-check-input" type="radio" onChange={onchangeHandle}
+                    value={0}
+                    checked={data?.hide_salary == 0}
+                    name="hide_salary" />
                   <label
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
@@ -278,9 +383,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Functional Area</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Select Functional Area</option>
-                  <option value="Al-Ahmadi">Accountant</option>
+                <select className="form-select" id="lang" value={data?.functional_area_id} name="functional_area_id" onChange={onchangeHandle}>
+                  <option value>Select functional area</option>
+                  {allState?.functional_area_id &&
+                    allState?.functional_area_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.functional_area}</option>;
+                    })}
                 </select>
               </div>
 
@@ -288,9 +396,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Job Type</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Select Job Type</option>
-                  <option value="Al-Ahmadi">Contact</option>
+                <select className="form-select" id="lang" value={data?.job_type_id} name="job_type_id" onChange={onchangeHandle}>
+                  <option value>Select Job Type</option>
+                  {allState?.job_type_id &&
+                    allState?.job_type_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.job_type}</option>;
+                    })}
                 </select>
               </div>
 
@@ -298,9 +409,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Job Shift</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Select Job Shift</option>
-                  <option value="Al-Ahmadi">First Shift</option>
+                <select className="form-select" id="lang" value={data?.job_shift_id} name="job_shift_id" onChange={onchangeHandle}>
+                  <option value>Select job shift</option>
+                  {allState?.job_shift_id &&
+                    allState?.job_shift_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.job_shift}</option>;
+                    })}
                 </select>
               </div>
 
@@ -308,9 +422,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Positions#</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Select Positions#</option>
-                  <option value="Al-Ahmadi">1</option>
+                <select className="form-select" id="lang" value={data?.position} name="position" onChange={onchangeHandle}>
+                  <option value>Select positions  </option>
+                  {allState?.positions &&
+                    allState?.positions?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.position}</option>;
+                    })}
                 </select>
               </div>
 
@@ -318,10 +435,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Gender</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">Select No Preference</option>
-                  <option value="Al-Ahmadi">Male</option>
-                  <option value="Al-Ahmadi">Female</option>
+                <select className="form-select" id="lang" value={data?.gender_id} name="gender_id" onChange={onchangeHandle}>
+                  <option value>Select Gender</option>
+                  {allState?.gender_id &&
+                    allState?.gender_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.gender}</option>;
+                    })}
                 </select>
               </div>
 
@@ -343,12 +462,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Required Degree Level</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">
-                    Select Required Degree Level
-                  </option>
-                  <option value="Al-Ahmadi">Non Matriculation</option>
-                  <option value="Al-Ahmadi">Bachelors</option>
+                <select className="form-select" id="lang" value={data?.degree_level} name="degree_level" onChange={onchangeHandle}>
+                  <option value>Select degree level</option>
+                  {allState?.degree_level_id &&
+                    allState?.degree_level_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.degree_level}</option>;
+                    })}
                 </select>
               </div>
 
@@ -356,12 +475,12 @@ const CreateJob = ({ allState }) => {
                 <label htmlFor="lang" className="mb-1">
                   <strong>Required job experience</strong>
                 </label>
-                <select className="form-select">
-                  <option value="Al-Asimah">
-                    Select Required job experience
-                  </option>
-                  <option value="Al-Ahmadi">Fresh</option>
-                  <option value="Al-Ahmadi">Less than 1 year</option>
+                <select className="form-select" id="lang" value={data?.job_experience} name="job_experience" onChange={onchangeHandle}>
+                  <option value>Select Job Exp</option>
+                  {allState?.job_experience &&
+                    allState?.job_experience?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.job_experience}</option>;
+                    })}
                 </select>
               </div>
 
@@ -440,9 +559,7 @@ const CreateJob = ({ allState }) => {
         </div>
 
         <div className="pageFooter">
-          <button className="btn btn-large btn-primary" type="button">
-            Update <BsFillArrowRightCircleFill />
-          </button>
+        <button className="btn btn-large btn-primary" type="button" onClick={params?.id ? submitDataUpdate : sendData}>     {params?.id ? 'Update' : 'Save'}  <BsFillArrowRightCircleFill /></button>
         </div>
       </div>
     </>

@@ -19,7 +19,7 @@ const JobsTable = ({data ,handleDelete}) => {
             <span className="record">records</span>
           </div>
         </div>
-        <table className="table table-striped table-bordered ">
+        <table inert className="table table-striped table-bordered ">
           <thead>
             {/* <tr role="row" className="filter">
               <td>
@@ -85,12 +85,15 @@ const JobsTable = ({data ,handleDelete}) => {
               </td>
             </tr> */}
             <tr role="row" className="heading">
-              <th>Company   Id</th>
+              <th>#</th>
+              <th>Company </th>
               <th>Job Title</th>
               <th>Num of Positions</th>
-              <th>Salary Surrency</th>
+              <th>Skills</th>
               <th>Salary</th>
               <th>City</th>
+              <th>Job experience</th>
+              <th>Career Level</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -100,15 +103,20 @@ const JobsTable = ({data ,handleDelete}) => {
                 return (
                   <tr role="row" className="odd" key={i + 1}>
                     <td>
-                      <span>{item.company_id}</span>
+                      <span>{i + 1}</span>
                     </td>
                     <td>
-                      <span>{item.title}</span>
+                      <span>{item?.company_id?.name}</span>
                     </td>
-                    <td>{item.num_of_positions}</td>
-                    <td>{item.salary_currency}</td>
+                    <td>
+                      <span>{item.job_title}</span>
+                    </td>
+                    <td inert>{item.position?.position}</td>
+                    <td>{item.skills_id?.job_skill}</td>
                     <td>{item?.salary_from} - {item.salary_to} </td>
-                    <td>{item.role}</td>
+                    <td>{item.city_id?.location_name}</td>
+                    <td>{item.job_experience?.job_experience}</td>
+                    <td>{item.carrier_level_id?.career_level}</td>
                     <td>
                       <div className="dropdown">
                         <button

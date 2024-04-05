@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
-const CandidateTable = ({ data, getCandidatelistData }) => {
+const CandidateTable = ({ data, getCandidatelistData,count }) => {
   const handleCandidateDelete = async (id) => {
     try {
       const delet = await axios.delete(
         `https://abaris-j-p-backend.vercel.app/api/candidate/delete_candidate/${id}`
       );
 
-      getCandidatelistData();
+      getCandidatelistData(count);
     } catch (error) {}
   };
   return (

@@ -7,17 +7,17 @@ import axios from "axios";
 const CandidateListPage = () => {
   const [data, setData] = useState();
 
-  const getCandidatelistData = async () => {
+  const getCandidatelistData = async (page) => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/candidate`
+        `https://abaris-j-p-backend.vercel.app/api/candidate?page=${page}`
       );
       setData(res.data);
     } catch (error) {}
   };
 
   useEffect(() => {
-    getCandidatelistData();
+    getCandidatelistData(1);
   }, []);
 
   return (

@@ -22,18 +22,82 @@ const CreateJobPage = () => {
   })
 
   const getAllData = async () => {
-    try {
-      const skill = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/job-skills`
-      );
-      setAllState({ ...allState, skills_id: skill.data });
-      const resCountryData = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/countries`
-      );
-      setAllState({ ...allState, country_id: resCountryData.data });
-    } catch (error) {
-      alert("Error");
-    }
+    const skill = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/job-skills`
+    );
+
+    const resCountryData = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/countries`
+    );
+
+    const state = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/states`
+    );
+
+    const citie = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/cities`
+    );
+
+    const resCareerData = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/carrier/`
+    );
+
+    const salary = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/salary-period`
+    );
+
+    const functional = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/functional-area`
+    );
+
+    const jobtype = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/job-type`
+    );
+
+    const jobshift = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/job-shift`
+    );
+
+    const gender = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/gender`
+    );
+
+    const position = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/position/`
+    );
+
+    const degreLevel = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/degree-level`
+    );
+
+    const jobExp = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/job-experience`
+    );
+    const currenc = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/currency/`
+    );
+    const company = await axios.get(
+      `https://abaris-j-p-backend.vercel.app/api/company`
+    );
+
+    setAllState({
+      ...allState,
+      skills_id: skill.data,
+      country_id: resCountryData.data,
+      states_id: state.data,
+      city_id: citie.data,
+      salery_periods_id:salary.data,
+      carrier_level_id:resCareerData.data,
+      functional_area_id:functional.data,
+      job_type_id:jobtype.data,
+      job_shift_id:jobshift.data,
+      gender_id:gender.data,
+      positions:position.data,
+      degree_level_id:degreLevel.data,
+      job_experience:jobExp.data,
+      currency_id:currenc.data,
+      company_id:company.data.data,
+    });
   }
   useEffect(() => {
     getAllData()
