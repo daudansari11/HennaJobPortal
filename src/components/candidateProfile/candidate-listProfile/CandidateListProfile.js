@@ -8,7 +8,7 @@ import CandidateTable from "./Candidatetable/CandidateTable";
 import CandidateReportTable from "./candidateReport/CandidateReport";
 import { useEffect, useState } from "react";
 
-const CandidateListProfile = ({ data, getCandidatelistData }) => {
+const CandidateListProfile = ({ data, getCandidatelistData ,getCandidatelistData2 }) => {
   const [count, setCount] = useState([])
   useEffect(() => {
     if (data?.totalPages) {
@@ -51,7 +51,7 @@ const CandidateListProfile = ({ data, getCandidatelistData }) => {
         <nav aria-label="Page navigation example">
           <ul className="pagination" style={{ margin: "18px" }}>
             {count && count?.map((val) => {
-              return <li className="page-item" onClick={() => { getCandidatelistData(val) }}><a className="page-link" href="#">{val}</a></li>
+              return <li className="page-item" onClick={() => { getCandidatelistData2(val) }}><a className="page-link" href="#">{val}</a></li>
             })}
           </ul>
         </nav>

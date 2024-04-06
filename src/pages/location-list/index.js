@@ -10,7 +10,7 @@ function LocationListPage() {
   const getLocationData = async () => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/cities`
+        `https://abaris-j-p-backend.vercel.app/api/location/`
       );
       setData(res.data);
     } catch (error) {}

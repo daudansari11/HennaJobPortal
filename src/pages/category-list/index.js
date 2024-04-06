@@ -11,7 +11,23 @@ const CategoryListPage = () => {
   const getCategoryData = async () => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/job-category`
+        `https://abaris-j-p-backend.vercel.app/api/job-category/`
+      );
+      setData(res?.data);
+    } catch (error) {}
+  };
+  const getCategoryData2 = async (num) => {
+    try {
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/job-category?page=${num}`
+      );
+      setData(res?.data?.data);
+    } catch (error) {}
+  };
+  const searchData = async (val) => {
+    try {
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/job-category/search/${val}`
       );
       setData(res?.data);
     } catch (error) {}
@@ -33,7 +49,7 @@ const CategoryListPage = () => {
         <h3 className="page-title">
           Manage Category <small>Category</small>
         </h3>
-        <CategoryList data={data} getCategoryData={getCategoryData} />
+        <CategoryList getCategoryData2={getCategoryData2} data={data} getCategoryData={getCategoryData} searchData={searchData}/>
       </div>
     </>
   );

@@ -8,7 +8,7 @@ const CandidateTable = ({ data, getCandidatelistData,count }) => {
   const handleCandidateDelete = async (id) => {
     try {
       const delet = await axios.delete(
-        `https://abaris-j-p-backend.vercel.app/api/candidate/delete_candidate/${id}`
+        `https://abaris-j-p-backend.vercel.app/api/candidate/delete//${id}`
       );
 
       getCandidatelistData(count);

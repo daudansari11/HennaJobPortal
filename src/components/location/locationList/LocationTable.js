@@ -8,7 +8,7 @@ function LocationTable({ data, getLocationData }) {
   const handleLocationDelete = async (id) => {
     try {
       const delet = await axios.delete(
-        `https://abaris-j-p-backend.vercel.app/api/cities/delete/${id}`
+        `https://abaris-j-p-backend.vercel.app/api/location/delete/${id}`
       );
       getLocationData();
     } catch (error) {}
@@ -42,7 +42,7 @@ function LocationTable({ data, getLocationData }) {
         </thead>
         <tbody>
           {data &&
-            data.map((item, i) => {
+            data?.data?.map((item, i) => {
               console.log(item);
               return (
                 <tr role="row" className="odd" key={i}>

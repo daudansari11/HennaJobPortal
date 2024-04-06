@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageBar from "../../components/dashboard/page-bar/PageBar";
 import Companies from "../../components/companies/Companies";
+import axios from "axios";
 
 const CompaniesPage = () => {
+  const [data, setData] = useState();
+
+  const getCompanys = async (page) => {
+    try {
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/company?page=${page}`
+      );
+      setData(res.data);
+    } catch (error) {
+      alert("Error");
+    }
+  };
+
+  useEffect(() => {
+    getCompanys(1);
+  }, []);
+
+  const handleDelete =async (id) => {
+    try {
+      const res = await axios.delete(
+        `https://abaris-j-p-backend.vercel.app/api/company/delete/${id}`
+      );
+      getCompanys()
+    } catch (error) {
+      alert("Error");
+    }
+  };
   return (
     <>
       <div className="pageWrapper">
@@ -10,7 +38,7 @@ const CompaniesPage = () => {
         <h3 className="page-title">
           Manage Companies <small>Companies</small>
         </h3>
-        <Companies />
+        <Companies data={data} handleDelete={handleDelete} getCompanys={getCompanys}/>
       </div>
     </>
   );

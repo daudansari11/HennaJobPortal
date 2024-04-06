@@ -153,6 +153,7 @@ function App() {
           {/* Companies */}
           <Route path="list-companies" element={<CompaniesPage />}></Route>
           <Route path="create-company" element={<CreateCompanyPage />}></Route>
+          <Route path="create-company/:id" element={<CreateCompanyPage />}></Route>
           <Route
             path="list-payment-history"
             element={<ListPaymentHistoryPage />}

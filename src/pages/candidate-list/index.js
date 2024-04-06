@@ -7,10 +7,18 @@ import axios from "axios";
 const CandidateListPage = () => {
   const [data, setData] = useState();
 
-  const getCandidatelistData = async (page) => {
+  const getCandidatelistData2 = async (page) => {
     try {
       const res = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/candidate?page=${page}`
+      );
+      setData(res.data);
+    } catch (error) {}
+  };
+  const getCandidatelistData = async (page) => {
+    try {
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/candidate`
       );
       setData(res.data);
     } catch (error) {}
@@ -35,6 +43,7 @@ const CandidateListPage = () => {
         <CandidateListProfile
           data={data}
           getCandidatelistData={getCandidatelistData}
+          getCandidatelistData2={getCandidatelistData2}
         />
       </div>
     </>

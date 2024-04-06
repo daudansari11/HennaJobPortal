@@ -17,9 +17,9 @@ function AddCandidateTable() {
     name: "",
     job_category: "",
     email: "",
-    email2: "",
+    email2: null,
     mobile: "",
-    mobile2: "",
+    mobile2: null,
     location: "",
     to: "12/2/2024",
     from: "12/2/2024",
@@ -50,6 +50,7 @@ function AddCandidateTable() {
       const res = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/candidate/${params?.id}`
       );
+      const clone ={...res.data ,job_category:res.data.job_category._id}
       setInitialVal(res?.data);
     } catch (error) {}
   };
@@ -61,10 +62,17 @@ function AddCandidateTable() {
       );
       setCategorydata(rescategory.data?.data);
 
+    } catch (error) {
+      alert("wrog");
+    }
+  };
+  const getData1 = async () => {
+    try {
+    
       const reslocation = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/cities`
+        `https://abaris-j-p-backend.vercel.app/api/location/`
       );
-      setLocationdata(reslocation.data);
+      setLocationdata(reslocation.data?.data);
     } catch (error) {
       alert("wrog");
     }
@@ -72,6 +80,7 @@ function AddCandidateTable() {
 
   useEffect(() => {
     getData();
+    getData1();
     if (params?.id) {
       getById();
     }
@@ -95,7 +104,7 @@ function AddCandidateTable() {
     } else {
       try {
         const res = await axios.post(
-          `https://abaris-j-p-backend.vercel.app/api/candidate/add_candidate`,
+          `https://abaris-j-p-backend.vercel.app/api/candidate/add`,
           initialVal
         );
         notify("Add Successfull");
@@ -136,6 +145,7 @@ function AddCandidateTable() {
                 name="job_category"
                 value={initialVal.job_category._id}
               >
+                  <option>Select Category</option>
                 {categorydata &&
                   categorydata?.map((item) => {
                     return (
@@ -244,8 +254,9 @@ function AddCandidateTable() {
                 className="form-select"
                 onChange={changeHandler}
                 name="location"
-                value={initialVal.location._id}
+                value={initialVal?.location._id}
               >
+                <option>Select Location</option>
                 {locationdata &&
                   locationdata.map((item) => {
                     return (

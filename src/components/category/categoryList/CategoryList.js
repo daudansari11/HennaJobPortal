@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -7,7 +7,18 @@ import { BiChevronLeft } from "react-icons/bi";
 
 import CategoryTable from "./CategoryTable";
 
-const CategoryList = ({ data, getCategoryData }) => {
+const CategoryList = ({ data, getCategoryData, searchData, getCategoryData2 }) => {
+  const [val, setVal] = useState('')
+  const [count, setCount] = useState([])
+  useEffect(() => {
+    if (data?.totalPages) {
+      const arrr = []
+      for (let i = 0; i < data.totalPages; i++) {
+        arrr.push(i + 1)
+      }
+      setCount(arrr);
+    }
+  }, [data])
   return (
     <>
       <div className="pageTableWrapper">
@@ -22,12 +33,25 @@ const CategoryList = ({ data, getCategoryData }) => {
             </Link>
           </div>
         </div>
-
-        <div className="pageBody">
-          <CategoryTable data={data} getCategoryData={getCategoryData} />
+        <div>
+          <input className="form-control" onChange={(e) => { setVal(e.target.value) }} placeholder="Search" style={{ margin: "15px", width: "250px" }} />
+          <button type="button" class="btn btn-primary" style={{ margin: "0 15px" }} onClick={() => { searchData(val) }}>Search</button>
         </div>
 
-        <div className="pageFooter">
+        <div className="pageBody">
+          <CategoryTable data={data?.data} getCategoryData={getCategoryData} />
+        </div>
+
+        
+        <nav aria-label="Page navigation example">
+          <ul className="pagination" style={{margin:"18px"}}>
+            {count && count?.map((val)=>{
+              return <li className="page-item" onClick={()=>{getCategoryData2(val)}}><a className="page-link" href="#">{val}</a></li>
+            })}
+          </ul>
+        </nav>
+
+        {/* <div className="pageFooter">
           <div className="row">
             <div className="col-md-6">
               <div className="showEntry">
@@ -60,7 +84,7 @@ const CategoryList = ({ data, getCategoryData }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

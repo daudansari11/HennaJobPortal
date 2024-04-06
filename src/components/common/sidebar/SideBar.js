@@ -870,14 +870,14 @@ const SideBar = ({setSidebarActive}) => {
           </li>
 
           {/* --user--package-- */}
-          <li className="heading">
+          {/* <li className="heading">
             <h3 className="uppercase">USER PACKAGES</h3>
-          </li>
+          </li> */}
           <li className="navItem">
             <button
               className={`navLink ${allAside.packages ? "active" : ""}`}
               onClick={() => {
-                changeOpen(!allAside.packages, "package");
+                changeOpen(!allAside.packages, "packages");
               }}
             >
               <div className="text">
