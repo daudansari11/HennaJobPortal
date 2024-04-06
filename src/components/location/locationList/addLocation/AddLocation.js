@@ -4,17 +4,17 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-function AddLocation() {
+function AddLocation({allState}) {
   const params = useParams();
 
   const [initialVal, setInitialVal] = useState({
     location_code: "",
     location_name: "",
-    state: "",
-    country: "",
+    state_id: "",
+    country_id: "",
     lang: "",
     meta_description: "",
-    is_active: null,
+    is_active: 1,
   });
   const navigate = useNavigate();
 
@@ -23,8 +23,6 @@ function AddLocation() {
     const value = e.target.value;
 
     const name = e.target.name;
-    console.log(e.target.name);
-
     clone[name] = value;
 
     setInitialVal(clone);
@@ -32,9 +30,10 @@ function AddLocation() {
 
   const getById = async (id) => {
     const res = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/cities/${params?.id}`
+      `https://abaris-j-p-backend.vercel.app/api/location/${params?.id}`
     );
-    setInitialVal(res?.data);
+    const clone = {...res.data ,country_id:res.data?.country_id._id ,state_id:res.data?.state_id?._id}
+    setInitialVal(clone);
   };
 
   useEffect(() => {
@@ -46,10 +45,9 @@ function AddLocation() {
   const notify = (updateMassage) => toast(updateMassage);
 
   const handleUpdate = async () => {
-    console.log(initialVal);
     try {
       const res = await axios.post(
-        `https://abaris-j-p-backend.vercel.app/api/cities/add`,
+        `https://abaris-j-p-backend.vercel.app/api/location/add`,
         initialVal
       );
       notify("Add Successfull");
@@ -62,7 +60,7 @@ function AddLocation() {
   const updateHandle = async () => {
     try {
       const res = await axios.put(
-        `https://abaris-j-p-backend.vercel.app/api/cities/update/${params.id}`,
+        `https://abaris-j-p-backend.vercel.app/api/location/update/${params.id}`,
         initialVal
       );
       notify("update Successfull");
@@ -112,34 +110,34 @@ function AddLocation() {
                   onChange={changeHandler}
                 />
               </div>
+              <div className="form-group mb-3">
+                <label htmlFor="language_level">
+                  <strong>Country</strong>
+                </label>
+                <select className="form-select" id="lang" value={initialVal?.country_id} name="country_id" onChange={changeHandler}>
+                  <option value>Select Country</option>
+                  {allState?.country_id &&
+                    allState?.country_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.country}</option>;
+                    })}
+                </select>
+              </div>
 
               <div className="form-group mb-3">
                 <label htmlFor="language_level">
                   <strong>State</strong>
                 </label>
-                <input
-                  className="form-control"
-                  placeholder="State"
-                  type="text"
-                  name="state"
-                  value={initialVal?.state}
-                  onChange={changeHandler}
-                />
+                <select className="form-select" id="lang" value={initialVal?.state_id} name="state_id" onChange={changeHandler}>
+                  <option value>Select State</option>
+                  {allState?.states_id &&
+                    allState?.states_id?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.state}</option>;
+                    })}
+                </select>
+               
               </div>
 
-              <div className="form-group mb-3">
-                <label htmlFor="language_level">
-                  <strong>Country</strong>
-                </label>
-                <input
-                  className="form-control"
-                  placeholder="Country"
-                  type="text"
-                  name="country"
-                  value={initialVal?.country}
-                  onChange={changeHandler}
-                />
-              </div>
+{/*              
 
               <div className="form-group mb-3">
                 <label htmlFor="language_level">
@@ -153,7 +151,7 @@ function AddLocation() {
                   value={initialVal?.lang}
                   onChange={changeHandler}
                 />
-              </div>
+              </div> */}
 
               <div className="form-group mb-3">
                 <label htmlFor="language_level">
@@ -183,6 +181,7 @@ function AddLocation() {
                     value={1}
                     onChange={changeHandler}
                     defaultChecked
+                    checked={initialVal?.is_active == 1}
                   />
                   <label
                     className="form-check-label"
@@ -199,6 +198,7 @@ function AddLocation() {
                     name="is_active"
                     value={0}
                     onChange={changeHandler}
+                    checked={initialVal?.is_active == 0}
                   />
                   <label
                     className="form-check-label"
@@ -219,7 +219,7 @@ function AddLocation() {
           type="button"
           onClick={params.id ? updateHandle : handleUpdate}
         >
-          Update <BsFillArrowRightCircleFill />
+          Save <BsFillArrowRightCircleFill />
         </button>
       </div>
     </div>

@@ -84,7 +84,7 @@ const CreateJobPage = () => {
       ...allState,
       skills_id: skill.data,
       country_id: resCountryData.data,
-      states_id: state.data,
+      states_id: state.data.data,
       city_id: citie.data,
       salery_periods_id:salary.data,
       carrier_level_id:resCareerData.data,
@@ -96,7 +96,7 @@ const CreateJobPage = () => {
       degree_level_id:degreLevel.data,
       job_experience:jobExp.data,
       currency_id:currenc.data,
-      company_id:company.data.data,
+      company_id:company.data?.data,
     });
   }
   useEffect(() => {

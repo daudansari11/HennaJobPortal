@@ -13,7 +13,7 @@ const CategoryTable = ({ data, getCategoryData }) => {
         `https://abaris-j-p-backend.vercel.app/api/job-category/delete/${id}`
       );
       getCategoryData();
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
@@ -45,7 +45,7 @@ const CategoryTable = ({ data, getCategoryData }) => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((item, i) => {
+            {data?.length ? data?.map((item, i) => {
               return (
                 <tr role="row" className="odd" key={i}>
                   <td className="sorting_1">{i + 1}</td>
@@ -102,7 +102,7 @@ const CategoryTable = ({ data, getCategoryData }) => {
                   </td>
                 </tr>
               );
-            })}
+            }) : <tr><td>"No Data"</td></tr>}
           </tbody>
         </table>
       </div>
