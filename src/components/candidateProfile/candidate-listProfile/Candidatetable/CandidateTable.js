@@ -1,19 +1,26 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
-const CandidateTable = ({ data, getCandidatelistData,count }) => {
+import Modal from 'react-bootstrap/Modal';
+import ChartsBody from "../../../charts/ChartsBody";
+const CandidateTable = ({ data, getCandidatelistData, count }) => {
+  const [show, setShow] = useState(false);
   const handleCandidateDelete = async (id) => {
     try {
       const delet = await axios.delete(
-        `https://abaris-j-p-backend.vercel.app/api/candidate/delete//${id}`
+        `https://abaris-j-p-backend.vercel.app/api/candidate/delete/${id}`
       );
 
       getCandidatelistData(count);
-    } catch (error) {}
+    } catch (error) { }
   };
+
+  function handleShow(breakpoint) {
+    setShow(!show);
+  }
   return (
     <>
       <div className="pageTable">
@@ -37,10 +44,10 @@ const CandidateTable = ({ data, getCandidatelistData,count }) => {
               <th className="candidate_name_heading">Name</th>
               <th>Job category</th>
               <th>Mobile</th>
-              <th>Mobile 2</th>
+              {/* <th>Mobile 2</th> */}
 
               <th>Email</th>
-              <th>Email 2</th>
+              {/* <th>Email 2</th> */}
 
               <th>Location</th>
               <th>Docs</th>
@@ -57,9 +64,9 @@ const CandidateTable = ({ data, getCandidatelistData,count }) => {
                     </td>
                     <td>{item?.job_category?.category_name}</td>
                     <td>{item?.mobile}</td>
-                    <td>{item?.mobile2}</td>
+                    {/* <td>{item?.mobile2}</td> */}
                     <td>{item?.email}</td>
-                    <td>{item?.email2}</td>
+                    {/* <td>{item?.email2}</td> */}
 
                     <td>{item?.location?.location_name}</td>
                     <td>
@@ -83,6 +90,15 @@ const CandidateTable = ({ data, getCandidatelistData,count }) => {
                           Action
                         </button>
                         <ul className="dropdown-menu">
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              to={`#`}
+                              onClick={() => handleShow(true)}
+                            >
+                              Chart
+                            </Link>
+                          </li>
                           <li>
                             <Link
                               className="dropdown-item"
@@ -121,6 +137,25 @@ const CandidateTable = ({ data, getCandidatelistData,count }) => {
           </tbody>
         </table>
       </div>
+
+
+
+      <Modal show={show} size="lg">
+        <Modal.Header>
+          <Modal.Title>Charts</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ChartsBody />
+          <div style={{display:"flex"}}>
+            <input placeholder="Drop Your Message !" className="form-control"/>
+            <button type="button" style={{padding:"0 40px"}} class="btn btn-success">Send</button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleShow}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+
     </>
   );
 };

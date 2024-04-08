@@ -8,7 +8,7 @@ import CandidateTable from "./Candidatetable/CandidateTable";
 import CandidateReportTable from "./candidateReport/CandidateReport";
 import { useEffect, useState } from "react";
 
-const CandidateListProfile = ({ data, getCandidatelistData ,getCandidatelistData2 }) => {
+const CandidateListProfile = ({ data, getCandidatelistData ,getCandidatelistData2,getCandidatelistDataFilter }) => {
   const [count, setCount] = useState([])
   useEffect(() => {
     if (data?.totalPages) {
@@ -36,7 +36,7 @@ const CandidateListProfile = ({ data, getCandidatelistData ,getCandidatelistData
           </div>
         </div>
         <div className="report_table mt-5 mb-5">
-          <CandidateReportTable />
+          <CandidateReportTable getCandidatelistDataFilter={getCandidatelistDataFilter}/>
         </div>
         <div className="pageTableWrapper">
           <div className="pageBody">

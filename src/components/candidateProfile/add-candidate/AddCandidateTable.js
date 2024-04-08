@@ -48,7 +48,7 @@ function AddCandidateTable() {
   const getById = async (id) => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/candidate/${params?.id}`
+        `https://abaris-j-p-backend.vercel.app/api/candidate/get/${params?.id}`
       );
       const clone ={...res.data ,job_category:res.data.job_category._id}
       setInitialVal(res?.data);
@@ -58,9 +58,9 @@ function AddCandidateTable() {
   const getData = async () => {
     try {
       const rescategory = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/job-category`
+        `https://abaris-j-p-backend.vercel.app/api/job-category/all-category`
       );
-      setCategorydata(rescategory.data?.data);
+      setCategorydata(rescategory.data);
 
     } catch (error) {
       alert("wrog");
@@ -70,9 +70,9 @@ function AddCandidateTable() {
     try {
     
       const reslocation = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/location/`
+        `https://abaris-j-p-backend.vercel.app/api/location/all-location`
       );
-      setLocationdata(reslocation.data?.data);
+      setLocationdata(reslocation.data);
     } catch (error) {
       alert("wrog");
     }
@@ -92,7 +92,7 @@ function AddCandidateTable() {
     if (params?.id) {
       try {
         const res = await axios.put(
-          `https://abaris-j-p-backend.vercel.app/api/candidate/update_candidate/${params?.id}`,
+          `https://abaris-j-p-backend.vercel.app/api/candidate/update/${params?.id}`,
           initialVal
         );
 
@@ -189,7 +189,7 @@ function AddCandidateTable() {
               </label>
               <input
                 className="form-control"
-                placeholder="+91 8830 637322"
+                placeholder="+91 "
                 type="number"
                 name="mobile"
                 value={initialVal.mobile}
@@ -207,7 +207,7 @@ function AddCandidateTable() {
               </label>
               <input
                 className="form-control"
-                placeholder="+91 9952 225272"
+                placeholder="+91"
                 type="number"
                 name="mobile2"
                 value={initialVal.mobile2}
@@ -265,12 +265,12 @@ function AddCandidateTable() {
                   })}
               </select>
             </div>
-
+{/* 
             <div className="form-group mb-3 col-xl-6 col-lg-6">
               <Button variant="info" type="button" className="mt-4">
                 Browse
               </Button>{" "}
-            </div>
+            </div> */}
 
             <div className="form-group mb-3 ">
               <label htmlFor="language_level">
@@ -296,6 +296,7 @@ function AddCandidateTable() {
                   name="is_active"
                   value={1}
                   onChange={changeHandler}
+                  // checked={initialVal?.is_active == 1}
                   defaultChecked
                 />
                 <label className="form-check-label" htmlFor="flexRadioDefault1">
@@ -308,6 +309,7 @@ function AddCandidateTable() {
                   type="radio"
                   name="is_active"
                   value={0}
+                  // checked={initialVal?.is_active == 0}
                   onChange={changeHandler}
                 />
                 <label className="form-check-label" htmlFor="flexRadioDefault2">
@@ -324,7 +326,7 @@ function AddCandidateTable() {
         type="button"
         onClick={handleSubmit}
       >
-        Update <BsFillArrowRightCircleFill />
+        Save <BsFillArrowRightCircleFill />
       </button>
     </>
   );

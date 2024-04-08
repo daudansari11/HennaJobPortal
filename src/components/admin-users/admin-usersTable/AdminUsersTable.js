@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import Modal from 'react-bootstrap/Modal';
+import ChartsBody from "../../charts/ChartsBody";
+import { Button } from "antd";
 const AdminUsersTable = ({ data }) => {
+  const [show, setShow] = useState(false);
+  function handleShow(breakpoint) {
+    setShow(!show);
+  }
   return (
     <>
       <div className="pageTable">
@@ -43,7 +49,6 @@ const AdminUsersTable = ({ data }) => {
           <tbody>
             {data &&
               data.map((item, i) => {
-                console.log(item);
                 return (
                   <tr role="row" className="odd" key={i + 1}>
                     <td>
@@ -66,6 +71,15 @@ const AdminUsersTable = ({ data }) => {
                           Action
                         </button>
                         <ul className="dropdown-menu">
+                        <li>
+                            <Link
+                              className="dropdown-item"
+                              to={`#`}
+                              onClick={() => handleShow(true)}
+                            >
+                              Chart
+                            </Link>
+                          </li>
                           <li>
                             <Link
                               className="dropdown-item"
@@ -88,6 +102,24 @@ const AdminUsersTable = ({ data }) => {
           </tbody>
         </table>
       </div>
+
+      
+      <Modal show={show} size="lg">
+        <Modal.Header>
+          <Modal.Title>Charts</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ChartsBody />
+          <div style={{display:"flex"}}>
+            <input placeholder="Drop Your Message !" className="form-control"/>
+            <button type="button" style={{padding:"0 40px"}} class="btn btn-success">Send</button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleShow}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+
     </>
   );
 };

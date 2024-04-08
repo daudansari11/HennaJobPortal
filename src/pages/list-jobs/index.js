@@ -9,7 +9,17 @@ const JobsPage = () => {
   const getJobs = async (page) => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/jobs?page=${page}`
+        `https://abaris-j-p-backend.vercel.app/api/jobs/all`
+      );
+      setData(res.data);
+    } catch (error) {
+      alert("Error");
+    }
+  };
+  const getJobs2 = async (page) => {
+    try {
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/jobs/all?page=${page}`
       );
       setData(res.data);
     } catch (error) {
@@ -39,7 +49,7 @@ const JobsPage = () => {
         <h3 className="page-title">
           Manage Jobs <small>Jobs</small>
         </h3>
-        <Jobs data={data} handleDelete={handleDelete} getJobs={getJobs}/>
+        <Jobs data={data} handleDelete={handleDelete} getJobs={getJobs2}/>
       </div>
     </>
   );

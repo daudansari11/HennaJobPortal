@@ -33,7 +33,7 @@ function AddCategory() {
 
   const getById = async (id) => {
     const res = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/job-category/${params?.id}`
+      `https://abaris-j-p-backend.vercel.app/api/job-category/get/${params?.id}`
     );
     setInitialVal(res?.data);
   };

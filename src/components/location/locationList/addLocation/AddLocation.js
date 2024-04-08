@@ -30,7 +30,7 @@ function AddLocation({allState}) {
 
   const getById = async (id) => {
     const res = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/location/${params?.id}`
+      `https://abaris-j-p-backend.vercel.app/api/location/get/${params?.id}`
     );
     const clone = {...res.data ,country_id:res.data?.country_id._id ,state_id:res.data?.state_id?._id}
     setInitialVal(clone);

@@ -4268,3 +4268,54 @@
     margin-bottom: 25px;
   }
 }
+
+
+.imgsChart{
+  width: 50px;
+  height: 50px;
+  background-color: rgb(190, 185, 185);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.imgsCharts{
+  width: 40px;
+  height: 40px;
+  background-color: rgb(207, 206, 206);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.imgUs{
+  display: flex;
+  align-items: center;
+}
+.imgUss{
+  display: flex;
+  align-items: center;
+}
+.callicon{
+  font-size: 34px;
+}
+.userMsg{
+  padding: 10px;
+  background-color: rgb(232 228 228);
+  border-radius: 10px;
+}
+.adminChart{
+  display: flex;
+  justify-content: end;
+}
+.maincalland{
+  position: fixed;
+  width: 730px;
+  background: white;
+}
+.extramarg{
+  margin-top: 65px !important;
+}
