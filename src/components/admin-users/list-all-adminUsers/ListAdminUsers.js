@@ -29,7 +29,7 @@ const ListAllAdminUsers = ({ data }) => {
         </div>
 
         <div className="pageBody">
-          <AdminUsersTable data={data}  />
+          <AdminUsersTable data={data?.data}  />
         </div>
 
         <div className="pageFooter">

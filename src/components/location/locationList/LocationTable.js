@@ -56,6 +56,7 @@ function LocationTable({ data, getLocationData }) {
                     <span>{item?.is_active === 0 ? "Inactive" : "Active"}</span>
                   </td>
                   <td>
+                    
                     <div className="dropdown">
                       <button
                         className="btn btn-primary dropdown-toggle"

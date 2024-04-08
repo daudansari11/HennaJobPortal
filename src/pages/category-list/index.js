@@ -11,7 +11,7 @@ const CategoryListPage = () => {
   const getCategoryData = async () => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/job-category/`
+        `https://abaris-j-p-backend.vercel.app/api/job-category/all`
       );
       setData(res?.data);
     } catch (error) {}
@@ -19,9 +19,9 @@ const CategoryListPage = () => {
   const getCategoryData2 = async (num) => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/job-category?page=${num}`
+        `https://abaris-j-p-backend.vercel.app/api/job-category/all?page=${num}`
       );
-      setData(res?.data?.data);
+      setData(res?.data);
     } catch (error) {}
   };
   const searchData = async (val) => {
@@ -29,7 +29,7 @@ const CategoryListPage = () => {
       const res = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/job-category/search/${val}`
       );
-      setData(res?.data);
+      setData(res);
     } catch (error) {}
   };
 

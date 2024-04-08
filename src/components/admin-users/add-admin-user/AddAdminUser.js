@@ -40,7 +40,7 @@ const AddAdminUser = () => {
         `https://abaris-j-p-backend.vercel.app/api/adminuser/get/${params?.id}`
       );
 
-      setInitialVal(res?.data.getaUser);
+      setInitialVal(res?.data.getaAdminUser);
     } catch (error) {}
   };
 
@@ -121,7 +121,7 @@ const AddAdminUser = () => {
                 />
               </div>
 
-              <div className="form-group mb-3">
+              {!params?.id && <div className="form-group mb-3">
                 <label htmlFor="language_level">
                   <strong>Password</strong>
                 </label>
@@ -133,7 +133,7 @@ const AddAdminUser = () => {
                   value={initialVal?.password}
                   onChange={changeHandler}
                 />
-              </div>
+              </div>}
 
               <div className="form-group mb-3">
                 <label htmlFor="language_level">

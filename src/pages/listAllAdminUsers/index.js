@@ -9,7 +9,7 @@ const ListAllAdminUsersPage = () => {
   const getUserData = async () => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/adminuser/all-users`
+        `https://abaris-j-p-backend.vercel.app/api/adminuser/all`
       );
       setData(res.data);
     } catch (error) {}
