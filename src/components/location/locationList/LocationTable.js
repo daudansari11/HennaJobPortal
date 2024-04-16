@@ -76,7 +76,7 @@ function LocationTable({ data, getLocationData }) {
                             Edit
                           </Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Popconfirm
                             title="Delete the task"
                             description="Are you sure to delete this Candidate?"
@@ -91,7 +91,7 @@ function LocationTable({ data, getLocationData }) {
                           >
                             <Button danger>Delete</Button>
                           </Popconfirm>
-                        </li>
+                        </li> */}
                         <li>
                           <a className="dropdown-item" href="#">
                             Mark in Active

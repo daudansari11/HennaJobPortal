@@ -7,7 +7,7 @@ import UserChart from "./UserChart";
 import AdminReply from "./AdminReply";
 
 function ChartsBody() {
-    return <div style={{ margin: "8px", height: "540px", overflow: "auto" }}>
+    return <div style={{ margin: "8px", height: "600px", overflow: "auto" }}>
         <div className="d-flex justify-content-between maincalland" style={{ borderBottom: "1px solid gray", padding: "8px 0" }}>
             <div className="imgUs">
                 <div className="imgsChart"><FaUser />

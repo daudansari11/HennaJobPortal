@@ -9,7 +9,17 @@ const CompaniesPage = () => {
   const getCompanys = async (page) => {
     try {
       const res = await axios.get(
-        `https://abaris-j-p-backend.vercel.app/api/company?page=${page}`
+        `https://abaris-j-p-backend.vercel.app/api/company/all?page=${page}`
+      );
+      setData(res.data);
+    } catch (error) {
+      alert("Error");
+    }
+  };
+  const getCompanys2 = async (page) => {
+    try {
+      const res = await axios.get(
+        `https://abaris-j-p-backend.vercel.app/api/company/all`
       );
       setData(res.data);
     } catch (error) {
@@ -18,7 +28,7 @@ const CompaniesPage = () => {
   };
 
   useEffect(() => {
-    getCompanys(1);
+    getCompanys2(1);
   }, []);
 
   const handleDelete =async (id) => {

@@ -8,17 +8,23 @@ import CandidateTable from "./Candidatetable/CandidateTable";
 import CandidateReportTable from "./candidateReport/CandidateReport";
 import { useEffect, useState } from "react";
 
-const CandidateListProfile = ({ data, getCandidatelistData ,getCandidatelistData2,getCandidatelistDataFilter }) => {
+const CandidateListProfile = ({ data, getCandidatelistData, getCandidatelistData2, getCandidatelistDataFilter }) => {
   const [count, setCount] = useState([])
+  const [count1, setCount1] = useState(1)
   useEffect(() => {
     if (data?.totalPages) {
       const arrr = []
       for (let i = 0; i < data.totalPages; i++) {
-        arrr.push(i +1)
+        arrr.push(i + 1)
       }
       setCount(arrr);
     }
   }, [data])
+  
+  const getCandidatelistData3 = (num)=>{
+    getCandidatelistData2(num)
+    setCount1(num)
+  }
   return (
     <>
       <div className="pageTableWrappe">
@@ -36,7 +42,7 @@ const CandidateListProfile = ({ data, getCandidatelistData ,getCandidatelistData
           </div>
         </div>
         <div className="report_table mt-5 mb-5">
-          <CandidateReportTable getCandidatelistDataFilter={getCandidatelistDataFilter}/>
+          <CandidateReportTable getCandidatelistDataFilter={getCandidatelistDataFilter} getCandidatelistData={getCandidatelistData}/>
         </div>
         <div className="pageTableWrapper">
           <div className="pageBody">
@@ -48,13 +54,31 @@ const CandidateListProfile = ({ data, getCandidatelistData ,getCandidatelistData
           </div>
         </div>
 
-        <nav aria-label="Page navigation example">
-          <ul className="pagination" style={{ margin: "18px" }}>
-            {count && count?.map((val) => {
-              return <li className="page-item" onClick={() => { getCandidatelistData2(val) }}><a className="page-link" href="#">{val}</a></li>
-            })}
-          </ul>
-        </nav>
+
+        <div className="pageFooter">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="showEntry">
+                <p>
+                  Showing {count1} of {count?.length} entries page
+                </p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="paginationPart">
+
+                <nav aria-label="Page navigation example">
+                  <ul className="pagination" style={{ margin: "18px" }}>
+                    {count && count?.map((val) => {
+                      return <li className="page-item" onClick={() => { getCandidatelistData3(val) }}><a className="page-link" href="#">{val}</a></li>
+                    })}
+                  </ul>
+                </nav>
+
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </>

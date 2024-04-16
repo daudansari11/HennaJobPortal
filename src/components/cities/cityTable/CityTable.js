@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CityTable = ({ data }) => {
+const CityTable = ({ data ,handleDelete}) => {
   return (
     <>
       <div className="pageTable">
@@ -32,7 +32,7 @@ const CityTable = ({ data }) => {
         </div>
         <table className="table table-striped table-bordered ">
           <thead>
-            <tr role="row" className="filter">
+            {/* <tr role="row" className="filter">
               <td>
                 <select className="form-select">
                   <option value selected="selected">
@@ -77,10 +77,10 @@ const CityTable = ({ data }) => {
                   <option value={0}>In Active</option>
                 </select>
               </td>
-            </tr>
+            </tr> */}
             <tr role="row" className="heading">
-              <th>Language</th>
-              <th>State</th>
+              <th>#</th>
+              <th>Country</th>
 
               <th>City</th>
               <th>Action</th>
@@ -88,13 +88,12 @@ const CityTable = ({ data }) => {
           </thead>
           <tbody>
             {data &&
-              data?.map((item) => {
-                console.log(item);
+              data?.map((item,i) => {
                 return (
                   <tr role="row" className="odd">
-                    <td className="sorting_1">{item?.lang}</td>
-                    <td className="sorting_1">jkfdk</td>
-                    <td className="sorting_1">'Abullah-as-Salam</td>
+                    <td className="sorting_1">{i+1}</td>
+                    <td className="sorting_1">{item?.country_id?.country}</td>
+                    <td className="sorting_1">{item?.city}</td>
                     <td>
                       <div className="dropdown">
                         <button
@@ -108,12 +107,12 @@ const CityTable = ({ data }) => {
                         </button>
                         <ul className="dropdown-menu">
                           <li>
-                            <Link className="dropdown-item" to="#">
+                            <Link className="dropdown-item"  to={`/admin/create-city/${item._id}`}>
                               Edit
                             </Link>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="#">
+                            <a className="dropdown-item" href="#"  onClick={()=>{handleDelete(item._id)}}>
                               Delete
                             </a>
                           </li>

@@ -44,7 +44,7 @@ const CandidateTable = ({ data, getCandidatelistData, count }) => {
               <th className="candidate_name_heading">Name</th>
               <th>Job category</th>
               <th>Mobile</th>
-              {/* <th>Mobile 2</th> */}
+              <th>Mobile 2</th>
 
               <th>Email</th>
               {/* <th>Email 2</th> */}
@@ -64,9 +64,9 @@ const CandidateTable = ({ data, getCandidatelistData, count }) => {
                     </td>
                     <td>{item?.job_category?.category_name}</td>
                     <td>{item?.mobile}</td>
-                    {/* <td>{item?.mobile2}</td> */}
+                    <td>{item?.mobile2 ? item?.mobile2 : '---'}</td>
                     <td>{item?.email}</td>
-                    {/* <td>{item?.email2}</td> */}
+                    {/* <td>{item?.email2 ? item?.email2 : '---'}</td> */}
 
                     <td>{item?.location?.location_name}</td>
                     <td>
@@ -107,7 +107,7 @@ const CandidateTable = ({ data, getCandidatelistData, count }) => {
                               Edit
                             </Link>
                           </li>
-                          <li>
+                          {/* <li>
                             <Popconfirm
                               title="Delete the task"
                               description="Are you sure to delete this Candidate?"
@@ -122,7 +122,7 @@ const CandidateTable = ({ data, getCandidatelistData, count }) => {
                             >
                               <Button danger>Delete</Button>
                             </Popconfirm>
-                          </li>
+                          </li> */}
                           <li>
                             <a className="dropdown-item" href="#">
                               Mark in Active
@@ -140,15 +140,15 @@ const CandidateTable = ({ data, getCandidatelistData, count }) => {
 
 
 
-      <Modal show={show} size="lg">
+      <Modal show={show} size="lg" fullscreen={true}>
         <Modal.Header>
           <Modal.Title>Charts</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ChartsBody />
-          <div style={{display:"flex"}}>
-            <input placeholder="Drop Your Message !" className="form-control"/>
-            <button type="button" style={{padding:"0 40px"}} class="btn btn-success">Send</button>
+          <div style={{ display: "flex" }}>
+            <input placeholder="Drop Your Message !" className="form-control" />
+            <button type="button" style={{ padding: "0 40px" }} class="btn btn-success">Send</button>
           </div>
         </Modal.Body>
         <Modal.Footer>

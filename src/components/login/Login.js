@@ -27,10 +27,11 @@ function Login() {
   const handleSubmit = async () => {
     try {
       const res = await axios.post(
-        `https://abaris-j-p-backend.vercel.app/api/adminUser/login`,
+        `https://abaris-j-p-backend.vercel.app/api/adminuser/admin-login`,
         initialVal
       );
       notify("Login Successfull");
+      window.localStorage.setItem('token' ,res.data.token)
       setTimeout(() => {
         navigate("/admin");
       }, 1000);

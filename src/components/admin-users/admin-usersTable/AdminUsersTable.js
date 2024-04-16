@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import ChartsBody from "../../charts/ChartsBody";
 import { Button } from "antd";
-const AdminUsersTable = ({ data }) => {
+const AdminUsersTable = ({ data ,handleDelete}) => {
   const [show, setShow] = useState(false);
   function handleShow(breakpoint) {
     setShow(!show);
@@ -89,7 +89,7 @@ const AdminUsersTable = ({ data }) => {
                             </Link>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="#">
+                            <a className="dropdown-item" href="#" onClick={()=>{handleDelete(item._id)}}>
                               Delete
                             </a>
                           </li>

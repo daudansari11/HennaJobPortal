@@ -3,25 +3,30 @@ import PageBar from "../../components/dashboard/page-bar/PageBar";
 import CandidateListProfile from "../../components/candidateProfile/candidate-listProfile/CandidateListProfile";
 import { Helmet } from "react-helmet";
 import axios from "axios";
+import { Loaders } from "../Loaders";
 
 const CandidateListPage = () => {
   const [data, setData] = useState();
-
+  const [loader, setLoader] = useState(false)
   const getCandidatelistData2 = async (page) => {
+    setLoader(true)
     try {
       const res = await axios.get(
         ` https://abaris-j-p-backend.vercel.app/api/candidate/all?page=${page}`
       );
       setData(res.data);
     } catch (error) { }
+    setLoader(false)
   };
   const getCandidatelistData = async (page) => {
+    setLoader(true)
     try {
       const res = await axios.get(
         ` https://abaris-j-p-backend.vercel.app/api/candidate/all`
       );
       setData(res.data);
     } catch (error) { }
+    setLoader(false)
   };
 
   useEffect(() => {
@@ -30,25 +35,31 @@ const CandidateListPage = () => {
 
 
   const getCandidatelistDataFilter = async (val) => {
+    setLoader(true)
+    let url = `https://abaris-j-p-backend.vercel.app/api/candidate/filter`
+
+    for (const key in val) {
+      if (val[key].length > 0) {
+        let newUrl = `${url}?${key}=${val[key]}`
+        url = newUrl
+      }
+    }
+
     try {
-      const res = await axios.post(
-        `https://abaris-j-p-backend.vercel.app/api/candidate/filter`,
-        {
-          name:val.name,
-          email:val.email1,
-          mobile:val.mobile1,
-        }
+      const res = await axios.get(
+        `${url}`,
       );
-      const clone = {data:[...res.data]}
+      const clone = { data: [...res.data] }
       setData(clone)
     } catch (error) { }
 
-
+    setLoader(false)
   };
 
 
   return (
     <>
+      {loader && <Loaders />}
       <Helmet>
         <title>Candidate List | job portal</title>
         <meta name="keyword" content="Jobs, Find Job, Give " />

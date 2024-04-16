@@ -5,8 +5,19 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
 import { Link } from "react-router-dom";
 import Faqstable from "../faqsTable/FaqsTable";
+import { useEffect, useState } from "react";
 
-function ListFaqs() {
+function ListFaqs({ data, handleDelete,getFaq2 }) {
+  const [count, setCount] = useState([])
+  useEffect(() => {
+    if (data?.totalPages) {
+      const arrr = []
+      for (let i = 0; i < data.totalPages; i++) {
+        arrr.push(i +1)
+      }
+      setCount(arrr);
+    }
+  }, [data])
   return (
     <>
       <div className="pageTableWrapper">
@@ -23,10 +34,18 @@ function ListFaqs() {
         </div>
 
         <div className="pageBody">
-          <Faqstable title="Question" title2="Answer"/>
+          <Faqstable data={data?.data} handleDelete={handleDelete} title="Question" title2="Answer"/>
         </div>
 
-        <div className="pageFooter">
+        <nav aria-label="Page navigation example">
+          <ul className="pagination" style={{margin:"18px"}}>
+            {count && count?.map((val)=>{
+              return <li className="page-item" onClick={()=>{getFaq2(val)}}><a className="page-link" href="#">{val}</a></li>
+            })}
+          </ul>
+        </nav>
+
+        {/* <div className="pageFooter">
           <div className="row">
             <div className="col-md-6">
               <div className="showEntry">
@@ -62,7 +81,7 @@ function ListFaqs() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

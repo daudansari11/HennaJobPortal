@@ -103,7 +103,7 @@ const CountryTable = ({ data, getCountryData }) => {
                               Edit
                             </Link>
                           </li>
-                          <li>
+                          {/* <li>
                             <Popconfirm
                               title="Delete the task"
                               description="Are you sure to delete this Candidate?"
@@ -118,10 +118,8 @@ const CountryTable = ({ data, getCountryData }) => {
                             >
                               <Button danger>Delete</Button>
                             </Popconfirm>
-                            {/* <a className="dropdown-item" href="#">
-                              Delete
-                            </a> */}
-                          </li>
+                            
+                          </li> */}
                           <li>
                             <a className="dropdown-item" href="#">
                               Mark in Active

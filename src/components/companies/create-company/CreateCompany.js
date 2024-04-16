@@ -40,7 +40,7 @@ const CreateCompany = ({dataAll}) => {
   const params = useParams()
   const getById = async (id) => {
     const res = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/company/${params?.id}`
+      `https://abaris-j-p-backend.vercel.app/api/company/get/${params?.id}`
     );
     setData({ ...res?.data,country_id:res.data.country_id._id ,city_id:res.data.city_id._id });
   };
@@ -409,7 +409,7 @@ const CreateCompany = ({dataAll}) => {
                   <option value>Select City</option>
                   {dataAll?.city &&
                     dataAll?.city?.map((item) => {
-                      return <option key={item._id} value={item._id}>{item.location_name}</option>;
+                      return <option key={item._id} value={item._id}>{item.city}</option>;
                     })}
                 </select>
               </div>

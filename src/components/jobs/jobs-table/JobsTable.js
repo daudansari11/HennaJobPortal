@@ -6,7 +6,7 @@ const JobsTable = ({data ,handleDelete}) => {
     <>
       <div className="pageTable">
         <div className="tableLength">
-          <div className="dataTables_length">
+          {/* <div className="dataTables_length">
             <select
               name="languageLevelDatatableAjax_length"
               className="form-select "
@@ -17,7 +17,7 @@ const JobsTable = ({data ,handleDelete}) => {
               <option value={100}>100</option>
             </select>{" "}
             <span className="record">records</span>
-          </div>
+          </div> */}
         </div>
         <table inert className="table table-striped table-bordered ">
           <thead>
@@ -91,7 +91,7 @@ const JobsTable = ({data ,handleDelete}) => {
               <th>Num of Positions</th>
               <th>Skills</th>
               <th>Salary</th>
-              <th>City</th>
+              <th>States</th>
               <th>Job experience</th>
               <th>Career Level</th>
               <th>Actions</th>
@@ -114,7 +114,7 @@ const JobsTable = ({data ,handleDelete}) => {
                     <td inert>{item.position?.position}</td>
                     <td>{item.skills_id?.job_skill}</td>
                     <td>{item?.salary_from} - {item.salary_to} </td>
-                    <td>{item.city_id?.location_name}</td>
+                    <td>{item.states_id?.state}</td>
                     <td>{item.job_experience?.job_experience}</td>
                     <td>{item.carrier_level_id?.career_level}</td>
                     <td>
@@ -137,11 +137,11 @@ const JobsTable = ({data ,handleDelete}) => {
                               Edit
                             </Link>
                           </li>
-                          <li>
+                          {/* <li>
                             <a className="dropdown-item" href="#" onClick={()=>{handleDelete(item._id)}}>
                               Delete
                             </a>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                     </td>

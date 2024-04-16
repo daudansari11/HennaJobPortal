@@ -27,15 +27,15 @@ const CreateJobPage = () => {
     );
 
     const resCountryData = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/countries`
+      `https://abaris-j-p-backend.vercel.app/api/countries/all`
     );
 
     const state = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/states`
+      `https://abaris-j-p-backend.vercel.app/api/states/all`
     );
 
     const citie = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/cities`
+      `https://abaris-j-p-backend.vercel.app/api/cities/all`
     );
 
     const resCareerData = await axios.get(
@@ -77,7 +77,7 @@ const CreateJobPage = () => {
       `https://abaris-j-p-backend.vercel.app/api/currency/`
     );
     const company = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/company`
+      `https://abaris-j-p-backend.vercel.app/api/company/all`
     );
 
     setAllState({

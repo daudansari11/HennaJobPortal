@@ -7,7 +7,7 @@ import { BiChevronLeft } from "react-icons/bi";
 import AdminUsersTable from "../admin-usersTable/AdminUsersTable";
 import { Helmet } from "react-helmet";
 
-const ListAllAdminUsers = ({ data }) => {
+const ListAllAdminUsers = ({ data,handleDelete }) => {
   return (
     <>
       <Helmet>
@@ -29,7 +29,7 @@ const ListAllAdminUsers = ({ data }) => {
         </div>
 
         <div className="pageBody">
-          <AdminUsersTable data={data?.data}  />
+          <AdminUsersTable data={data?.data} handleDelete={handleDelete} />
         </div>
 
         <div className="pageFooter">
