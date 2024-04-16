@@ -201,6 +201,7 @@ function App() {
           {/* --C.M.S-- */}
           <Route path="list-cms" element={<ListCMSPages />}></Route>
           <Route path="create-cms" element={<AddNewCMSPages />}></Route>
+          <Route path="create-cms/:id" element={<AddNewCMSPages />}></Route>
           <Route
             path="list-cmsContent"
             element={<ListTranslatedPage />}
@@ -222,12 +223,17 @@ function App() {
           {/* ---FAQS */}
           <Route path="list-faqs" element={<ListFaqsPage />}></Route>
           <Route path="create-faq" element={<AddNewFaqPage />}></Route>
+          <Route path="create-faq/:id" element={<AddNewFaqPage />}></Route>
           <Route path="sort-faq" element={<SortFaqsPage />}></Route>
 
           {/* --Home Page video--- */}
           <Route path="list-videos" element={<ListVideoLanguagePage />}></Route>
           <Route
             path="create-video"
+            element={<AddNewVideoLanguagePage />}
+          ></Route>
+          <Route
+            path="create-video/:id"
             element={<AddNewVideoLanguagePage />}
           ></Route>
 
@@ -241,6 +247,10 @@ function App() {
             element={<AddNewTestimonialPage />}
           ></Route>
           <Route
+            path="create-testimonial/:id"
+            element={<AddNewTestimonialPage />}
+          ></Route>
+          <Route
             path="sort-testimonials"
             element={<SortTestimonialPage />}
           ></Route>
@@ -248,6 +258,7 @@ function App() {
           {/* ---Slider--- */}
           <Route path="list-sliders" element={<ListSliderPage />}></Route>
           <Route path="create-slider" element={<AddNewSliderPage />}></Route>
+          <Route path="create-slider/:id" element={<AddNewSliderPage />}></Route>
           <Route path="sort-sliders" element={<SortSliderPage />}></Route>
 
           {/* translate */}
@@ -287,6 +298,7 @@ function App() {
           {/* ---cities--- */}
           <Route path="list-cities" element={<ListCitiesPage />}></Route>
           <Route path="create-city" element={<AddNewCityPage />}></Route>
+          <Route path="create-city/:id" element={<AddNewCityPage />}></Route>
 
           {/* ----user-packages */}
           <Route path="list-packages" element={<ListPackagespage />}></Route>

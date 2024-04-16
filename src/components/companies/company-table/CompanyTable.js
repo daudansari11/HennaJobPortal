@@ -10,7 +10,7 @@ const CompanyTable = ({data, handleDelete}) => {
     <>
       <div className="pageTable">
         <div className="tableLength">
-          <div className="dataTables_length">
+          {/* <div className="dataTables_length">
             <select
               name="languageLevelDatatableAjax_length"
               className="form-select "
@@ -21,53 +21,11 @@ const CompanyTable = ({data, handleDelete}) => {
               <option value={100}>100</option>
             </select>{" "}
             <span className="record">records</span>
-          </div>
+          </div> */}
         </div>
         <table className="table table-striped table-bordered ">
           <thead>
-            {/* <tr role="row" className="filter">
-              <td>
-                <input
-                  type="text"
-                  className="form-control"
-                  autoComplete="off"
-                  placeholder="Company Name"
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  className="form-control"
-                  autoComplete="off"
-                  placeholder="Job Email"
-                />
-              </td>
-             
-              <td>
-                <select
-                  name="is_active"
-                  id="is_active"
-                  className="form-select"
-                >
-                  <option value={-1}>Is Active?</option>
-                  <option value={1} selected="selected">
-                    Active
-                  </option>
-                  <option value={0}>In Active</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  name="is_active"
-                  className="form-select"
-                >
-                  <option value={1} selected="selected">Is Featured?</option>
-                  <option value={2} > Featured </option>
-                  <option value={3}>Non Featured</option>
-                </select>
-              </td>
-              <td></td>
-            </tr> */}
+            
             <tr role="row" className="heading">
               <th>#</th>
               <th>Name</th>
@@ -110,7 +68,7 @@ const CompanyTable = ({data, handleDelete}) => {
                               Edit
                             </Link>
                           </li>
-                          <li>
+                          {/* <li>
                             <a
                               className="dropdown-item"
                               href="#"
@@ -119,7 +77,7 @@ const CompanyTable = ({data, handleDelete}) => {
                               <AiOutlineDelete className="action_icons" />
                               Delete
                             </a>
-                          </li>
+                          </li> */}
                           <li>
                             <a className="dropdown-item" href="#">
                               <BsCheck2Square className="action_icons" />

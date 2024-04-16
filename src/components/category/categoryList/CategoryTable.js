@@ -20,7 +20,7 @@ const CategoryTable = ({ data, getCategoryData }) => {
     <>
       <div className="pageTable">
         <div className="tableLength">
-          <div className="dataTables_length">
+          {/* <div className="dataTables_length">
             <select
               name="languageLevelDatatableAjax_length"
               className="form-select "
@@ -31,7 +31,7 @@ const CategoryTable = ({ data, getCategoryData }) => {
               <option value={100}>100</option>
             </select>{" "}
             <span className="record">records</span>
-          </div>
+          </div> */}
         </div>
         <table className="table table-striped table-bordered ">
           <thead>
@@ -76,7 +76,7 @@ const CategoryTable = ({ data, getCategoryData }) => {
                             Edit
                           </Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Popconfirm
                             title="Delete the task"
                             description="Are you sure to delete this Candidate?"
@@ -91,7 +91,7 @@ const CategoryTable = ({ data, getCategoryData }) => {
                           >
                             <Button danger>Delete</Button>
                           </Popconfirm>
-                        </li>
+                        </li> */}
                         <li>
                           <a className="dropdown-item" href="#">
                             Mark in Active

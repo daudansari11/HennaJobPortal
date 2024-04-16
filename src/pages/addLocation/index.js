@@ -15,23 +15,23 @@ function AddLocationPage() {
   const getAllData = async () => {
 
     const resCountryData = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/countries`
+      `https://abaris-j-p-backend.vercel.app/api/countries/all`
     );
 
     const state = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/states`
+      `https://abaris-j-p-backend.vercel.app/api/states/all`
     );
 
     const citie = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/cities`
+      `https://abaris-j-p-backend.vercel.app/api/cities/all`
     );
 
 
     setAllState({
       ...allState,
-      country_id: resCountryData.data,
+      country_id: resCountryData.data.data,
       states_id: state.data.data,
-      city_id: citie.data,
+      city_id: citie.data.data,
     });
   }
   useEffect(() => {

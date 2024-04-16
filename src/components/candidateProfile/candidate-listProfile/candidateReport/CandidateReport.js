@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-const CandidateReportTable = ({ getCandidatelistDataFilter }) => {
+import Select from 'react-select';
+const CandidateReportTable = ({ getCandidatelistDataFilter ,getCandidatelistData}) => {
   const [categorydata, setCategorydata] = useState();
   const [locationdata, setLocationdata] = useState();
   const getData = async () => {
@@ -9,7 +9,10 @@ const CandidateReportTable = ({ getCandidatelistDataFilter }) => {
       const rescategory = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/job-category/all-category`
       );
-      setCategorydata(rescategory.data);
+      const maped = rescategory.data?.map((item) => {
+        return { ...item, value: item.category_name, label: item.category_name }
+      })
+      setCategorydata(maped);
 
     } catch (error) {
       alert("wrog");
@@ -45,6 +48,12 @@ const CandidateReportTable = ({ getCandidatelistDataFilter }) => {
   const onchangeHandle = (e) => {
     const clone = { ...data }
     clone[e.target.name] = e.target.value
+    setData(clone)
+  }
+  const [showCateg, setShoCagte] = useState([])
+  const onchangeHandleCateg = (e) => {
+    const clone = { ...data, category: e._id }
+    setShoCagte([{...e}])
     setData(clone)
   }
   return (
@@ -125,7 +134,17 @@ const CandidateReportTable = ({ getCandidatelistDataFilter }) => {
                 <label htmlFor="lang" className="mb-1 ">
                   <strong>Category</strong>
                 </label>
-                <select
+                <Select
+                  // isMulti
+                  defaultValue={showCateg}
+                  value={showCateg}
+                  name="category"
+                  options={categorydata}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={onchangeHandleCateg}
+                />
+                {/* <select
                   className="form-select"
                   name="category"
                   value={data.category}
@@ -138,7 +157,7 @@ const CandidateReportTable = ({ getCandidatelistDataFilter }) => {
                         <option value={item._id}>{item.category_name}</option>
                       );
                     })}
-                </select>
+                </select> */}
               </div>
 
               <div className="form-group mb-3 col-lg-4 col-md-4">
@@ -151,7 +170,7 @@ const CandidateReportTable = ({ getCandidatelistDataFilter }) => {
                   value={data.location}
                   onChange={onchangeHandle}
                 >
-                  <option>Select Location</option>
+                  <option value={null}>Select Location</option>
                   {locationdata &&
                     locationdata.map((item) => {
                       return (
@@ -175,11 +194,14 @@ const CandidateReportTable = ({ getCandidatelistDataFilter }) => {
 
               <div className="mb-3 col-lg-4 col-md-4">
                 <div className="bt_container">
-                  <a href="#" type="btn" className="bg-primary report_btn me-2" onClick={()=>{getCandidatelistDataFilter(data)}}>
+                  <a href="#" type="btn" className="bg-primary report_btn me-2" onClick={() => { getCandidatelistDataFilter(data) }}>
                     Search
                   </a>
                   <a href="" type="btn" className="bg-success report_btn">
                     Download
+                  </a>
+                  <a href="#" type="btn" className="bg-success report_btn me-2" style={{margin:"0 7px"}} onClick={getCandidatelistData}>
+                    Reset
                   </a>
                 </div>
               </div>

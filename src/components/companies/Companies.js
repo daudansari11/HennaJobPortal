@@ -26,7 +26,7 @@ const Companies = ({data, handleDelete,getCompanys}) => {
             <h5>Company</h5>
           </div>
           <div className="addNew">
-            <Link to="/admin/create-job" className="btn btn-success">
+            <Link to="/admin/create-company" className="btn btn-success">
               <AiOutlinePlus /> Add New Company
             </Link>
           </div>

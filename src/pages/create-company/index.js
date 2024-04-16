@@ -19,21 +19,21 @@ const CreateCompanyPage = () => {
       `https://abaris-j-p-backend.vercel.app/api/ownership-type`
     );
     const resCountryData = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/countries`
+      `https://abaris-j-p-backend.vercel.app/api/countries/all`
     );
     // const states = await axios.get(
     //   `https://abaris-j-p-backend.vercel.app/api/states`
     // );
     const cities = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/cities`
+      `https://abaris-j-p-backend.vercel.app/api/cities/all`
     );
     setData({
       ...data,
       industrys: indus.data,
       owners: owner.data,
-      contry: resCountryData.data,
+      contry: resCountryData.data.data,
       // state: states.data,
-      city: cities.data
+      city: cities.data.data
     })
   }
   useEffect(() => {

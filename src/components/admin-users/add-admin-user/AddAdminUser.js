@@ -24,11 +24,11 @@ const AddAdminUser = () => {
     const value = e.target.value;
     const name = e.target.name;
 
-     if (name == "mobile") {
-       if (value.length == 11) {
-         return;
-       }
-     }
+    if (name == "mobile") {
+      if (value.length == 11) {
+        return;
+      }
+    }
 
     clone[name] = value;
     setInitialVal(clone);
@@ -41,7 +41,7 @@ const AddAdminUser = () => {
       );
 
       setInitialVal(res?.data.getaAdminUser);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -63,20 +63,24 @@ const AddAdminUser = () => {
       setTimeout(() => {
         navigate("/admin/list-admin-users");
       }, 1000);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const updateHandle = async () => {
     try {
-      const res = await axios.patch(
-        `https://abaris-j-p-backend.vercel.app/api/adminuser/updateUser/${params?.id}`,
-        initialVal
+      const res = await axios.put(
+        `https://abaris-j-p-backend.vercel.app/api/adminuser/edit/${params?.id}`, initialVal, {
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          authorization: `Bearer ${window.localStorage.getItem('token')}`,
+        }
+      }
       );
       notify("update Successfull");
       setTimeout(() => {
         navigate("/admin/list-admin-users");
       }, 1000);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
@@ -165,6 +169,9 @@ const AddAdminUser = () => {
                   <option value="user" defaultChecked>
                     User
                   </option>
+                  <option value="admin" defaultChecked>
+                    Admin
+                  </option>
                 </select>
               </div>
             </form>
@@ -177,7 +184,7 @@ const AddAdminUser = () => {
             type="button"
             onClick={params.id ? updateHandle : handleUpdate}
           >
-            Create New Admin User! <BsFillArrowRightCircleFill />
+            {params?.id ? 'Update' : "Create"} Admin User! <BsFillArrowRightCircleFill />
           </button>
         </div>
       </div>

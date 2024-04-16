@@ -4,8 +4,7 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
-import Button from "react-bootstrap/Button";
-
+import Select from 'react-select';
 function AddCandidateTable() {
   const [categorydata, setCategorydata] = useState();
   const [locationdata, setLocationdata] = useState();
@@ -16,7 +15,7 @@ function AddCandidateTable() {
   const [initialVal, setInitialVal] = useState({
     name: "",
     job_category: "",
-    email: "",
+    email: null,
     email2: null,
     mobile: "",
     mobile2: null,
@@ -50,9 +49,12 @@ function AddCandidateTable() {
       const res = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/candidate/get/${params?.id}`
       );
-      const clone ={...res.data ,job_category:res.data.job_category._id}
+      const clone = { ...res.data, job_category: res.data.job_category._id }
       setInitialVal(res?.data);
-    } catch (error) {}
+    } catch (error) {
+     
+      alert('s')
+     }
   };
 
   const getData = async () => {
@@ -60,7 +62,10 @@ function AddCandidateTable() {
       const rescategory = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/job-category/all-category`
       );
-      setCategorydata(rescategory.data);
+      const maped = rescategory.data?.map((item) => {
+        return { ...item, value: item.category_name, label: item.category_name }
+      })
+      setCategorydata(maped);
 
     } catch (error) {
       alert("wrog");
@@ -68,7 +73,7 @@ function AddCandidateTable() {
   };
   const getData1 = async () => {
     try {
-    
+
       const reslocation = await axios.get(
         `https://abaris-j-p-backend.vercel.app/api/location/all-location`
       );
@@ -100,7 +105,9 @@ function AddCandidateTable() {
         setTimeout(() => {
           navigate("/admin/candidate-list");
         }, 1000);
-      } catch (error) {}
+      } catch (error) {
+        alert(error?.response?.data?.message)
+       }
     } else {
       try {
         const res = await axios.post(
@@ -111,9 +118,22 @@ function AddCandidateTable() {
         setTimeout(() => {
           navigate("/admin/candidate-list");
         }, 1000);
-      } catch (error) {}
+      } catch (error) {
+        // console.log();
+        alert(error?.response?.data?.message)
+       }
     }
   };
+
+  const [showCateg, setShoCagte] = useState([])
+  const onchangeHandleCateg = (e) => {
+    const clone = { ...initialVal, job_category: e._id }
+    setShoCagte([{ ...e }])
+    setInitialVal(clone)
+  }
+  const changeHandler2 = (e) => {
+    console.log(e.target.files[0]);
+  }
 
   return (
     <>
@@ -139,20 +159,16 @@ function AddCandidateTable() {
               <label htmlFor="lang" className="mb-1">
                 <strong>Job Category</strong>
               </label>
-              <select
-                className="form-select"
-                onChange={changeHandler}
-                name="job_category"
-                value={initialVal.job_category._id}
-              >
-                  <option>Select Category</option>
-                {categorydata &&
-                  categorydata?.map((item) => {
-                    return (
-                      <option value={item._id}>{item.category_name}</option>
-                    );
-                  })}
-              </select>
+              <Select
+                // isMulti
+                defaultValue={showCateg}
+                value={showCateg}
+                name="category"
+                options={categorydata}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange={onchangeHandleCateg}
+              />
             </div>
 
             <div className="form-group mb-3 col-xl-6 col-lg-6">
@@ -265,7 +281,14 @@ function AddCandidateTable() {
                   })}
               </select>
             </div>
-{/* 
+
+            <div className="form-group mb-3 col-xl-6 col-lg-6">
+              <label htmlFor="lang" className="mb-1">
+                <strong>Upload CV</strong>
+              </label>
+             <input className="form-control" type="file" onChange={changeHandler2} name="cv"/>
+            </div>
+            {/* 
             <div className="form-group mb-3 col-xl-6 col-lg-6">
               <Button variant="info" type="button" className="mt-4">
                 Browse

@@ -5,45 +5,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 
-
-const obj = {
-  company_id: "9",
-  title: "",
-  description: "",
-  benefits: "",
-  country_id: "",
-  state_id: "",
-  city_id: "",
-  is_freelance: '',
-  career_level_id: "",
-  salary_from: '',
-  salary_to: '',
-  hide_salary: '',
-  salary_currency: "",
-  salary_period_id: "",
-  functional_area_id:'',
-  job_type_id: "",
-  job_shift_id: "",
-  num_of_positions: "",
-  gender_id: "",
-  expiry_date: "",
-  degree_level_id: "",
-  job_experience_id: "",
-  is_active: "1",
-  is_featured: "1",
-  created_at: "",
-  updated_at: "",
-  search: "",
-  slug: "",
-  reference: null,
-  location: null,
-  type: null,
-  postal_code: null,
-  job_advertiser: null,
-  application_url: null,
-  updatedAt: "",
-  job_title: ""
-}
 const CreateJob = ({ allState }) => {
   const [data, setData] = useState({
     position: '',
@@ -96,7 +57,7 @@ const CreateJob = ({ allState }) => {
   const params = useParams()
   const getById = async (id) => {
     const res = await axios.get(
-      `https://abaris-j-p-backend.vercel.app/api/jobs/${params?.id}`
+      `https://abaris-j-p-backend.vercel.app/api/jobs/get/${params?.id}`
     );
     setData({...res?.data });
   };
@@ -219,7 +180,7 @@ const CreateJob = ({ allState }) => {
                 <select className="form-select" id="lang" value={data?.country_id} name="country_id" onChange={onchangeHandle}>
                   <option value>Select Country</option>
                   {allState?.country_id &&
-                    allState?.country_id?.map((item) => {
+                    allState?.country_id?.data?.map((item) => {
                       return <option key={item._id} value={item._id}>{item.country}</option>;
                     })}
                 </select>
@@ -245,13 +206,13 @@ const CreateJob = ({ allState }) => {
                 <select className="form-select" id="lang" value={data?.city_id} name="city_id" onChange={onchangeHandle}>
                   <option value>Select City</option>
                   {allState?.city_id &&
-                    allState?.city_id?.map((item) => {
-                      return <option key={item._id} value={item._id}>{item.location_name}</option>;
+                    allState?.city_id?.data?.map((item) => {
+                      return <option key={item._id} value={item._id}>{item.city}</option>;
                     })}
                 </select>
               </div>
 
-              <div className="form-group mb-3">
+              {/* <div className="form-group mb-3">
                 <label htmlFor="is_default">
                   <strong>Is Freelance?</strong>
                 </label>
@@ -285,7 +246,7 @@ const CreateJob = ({ allState }) => {
                     No
                   </label>
                 </div>
-              </div>
+              </div> */}
 
               <div className="form-group mb-3">
                 <label htmlFor="lang" className="mb-1">
